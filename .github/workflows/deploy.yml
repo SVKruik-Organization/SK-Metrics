@@ -1,0 +1,15 @@
+name: Deploy SK Metrics
+on:
+  push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          PAYLOAD=$(echo '${{ toJson(github.event) }}' | jq -c .)
+          curl -X POST \
+               -H "Content-Type: application/json" \
+               -H "Authorization: Bearer ${{ secrets.DEPLOYMENT_PASSWORD }}" \
+               -d '{"type":"push","repository":"SK-Metrics", "payload":'"$PAYLOAD"'}' \
+               ${{ secrets.DEPLOYMENT_ENDPOINT }}
