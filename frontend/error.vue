@@ -17,10 +17,12 @@ function handleError(): void {
         <article class="flex-col">
             <h2>Whoops! Something went wrong.</h2>
             <strong>Some error occured while retrieving the requested data.</strong>
-            <p>This might happen due to a network error or some server struggling to keep up.</p>
-            <p class="back-link link-text" @click="handleError">Go back</p>
+            <p>{{ error?.statusCode === 404 ? "Looks like this page does not exist. How'd you get here?"
+                : "This might happen due to a network error or some server struggling to keep up." }}</p>
+            <p class="back-link link-text" @click.prevent="handleError">Go back</p>
             <div class="flex">
-                <p class="light-text">For the devs, this is want went wrong: {{ `${error?.message || "No message"}
+                <p class="light-text" v-if="error?.statusCode !== 404">For the devs, this is want went wrong: {{
+                    `${error?.message || "No message"}
                     ${error?.statusCode || 500}` }}</p>
             </div>
         </article>
@@ -44,6 +46,7 @@ article {
 
 .back-link {
     margin: 20px 0;
+    cursor: pointer;
 }
 
 @media (width <=700px) {
