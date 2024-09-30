@@ -28,7 +28,8 @@ nav {
 
 .nav-link {
     height: 70px;
-    line-height: 70px;
+    line-height: 80px;
+    box-sizing: border-box;
 }
 
 .active-nav-link {
