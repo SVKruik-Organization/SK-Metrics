@@ -3,6 +3,12 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     modules: ['@pinia/nuxt'],
     ssr: true,
+    runtimeConfig: {
+        uplink_host: process.env.AMQP_HOST,
+        uplink_port: process.env.AMQP_PORT,
+        uplink_username: process.env.AMQP_USERNAME,
+        uplink_password: process.env.AMQP_PASSWORD
+    },
     app: {
         head: {
             htmlAttrs: { lang: 'nl' },

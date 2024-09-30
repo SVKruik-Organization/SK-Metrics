@@ -3,7 +3,7 @@
         <nav>
             <NuxtLink class="nav-link" active-class="active-nav-link" to="/graphs">Grafieken</NuxtLink>
             <NuxtLink class="nav-link" active-class="active-nav-link" to="/table">Tabellen</NuxtLink>
-            <a class="nav-link" href="https://github.com/SVKruik/HvA-NL-J1" target="_blank">Repository</a>
+            <a class="nav-link" href="https://github.com/SVKruik-Organization/SK-Metrics" target="_blank">Repository</a>
         </nav>
     </header>
 </template>
