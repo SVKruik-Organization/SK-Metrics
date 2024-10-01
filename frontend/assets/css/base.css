@@ -31,6 +31,7 @@ body {
     flex-direction: column;
     max-width: 800px;
     width: 95%;
+    gap: 20px;
 }
 
 .glass {
@@ -43,7 +44,11 @@ body {
 .splitter {
     width: 100%;
     height: 2px;
-    background-color: var(--fill);
+    background-color: var(--border);
+}
+
+.splitter-light {
+    background-color: var(--fill-light);
 }
 
 .full-width {

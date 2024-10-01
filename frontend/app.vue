@@ -16,13 +16,28 @@ watch(() => route, (to: RouteLocation, _from: RouteLocation) => {
 </script>
 
 <template>
-    <Navbar />
-    <main>
-        <NuxtPage />
-    </main>
+    <div class="flex-col content">
+        <div class="flex-col top-content">
+            <Navbar />
+            <main>
+                <NuxtPage />
+            </main>
+        </div>
+        <Footer />
+    </div>
 </template>
 
 <style scoped>
+.content {
+    justify-content: space-between;
+    gap: 30px;
+    width: 100%;
+}
+
+.top-content {
+    width: 100%;
+}
+
 main {
     display: flex;
     width: 100%;

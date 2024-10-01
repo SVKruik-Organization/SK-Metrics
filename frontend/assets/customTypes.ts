@@ -27,3 +27,49 @@ export type UplinkMessage = {
     "content": string,
     "timestamp": Date
 }
+
+// Chart Data
+export type ChartData = {
+    "labels": Array<string>,
+    "datasets": Array<{
+        "label": string,
+        "data": Array<number>,
+        "backgroundColor"?: Array<string> | string,
+        "borderColor"?: string,
+        "fill"?: boolean
+    }>
+}
+
+// Learning Goal 2 Result Item
+export type LearningGoal2Result = {
+    "week": number,
+    "avg_time_taken_percentage": number,
+    "avg_qa_iterations": number
+}
+
+// Learning Goal 4 Unprocessed Incoming Result Item
+export type LearningGoal4RawResult = {
+    "category": string,
+    "language": string,
+    "date_creation": string
+}
+
+export type LearningGoal4RawResultType = {
+    "total": Map<string, number>,
+    "firstHalf": Map<string, number>,
+    "secondHalf": Map<string, number>
+}
+
+export type LearningGoal4ResultType = {
+    "total": Array<number>,
+    "firstHalf": Array<number>,
+    "secondHalf": Array<number>
+}
+
+// Learning Goal 4 Result Item
+export type LearningGoal4Result = {
+    "categoryNames": Array<string>
+    "categoryCounts": LearningGoal4ResultType,
+    "languageNames": Array<string>,
+    "languageCounts": LearningGoal4ResultType
+}

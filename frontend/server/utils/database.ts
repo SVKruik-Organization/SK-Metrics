@@ -1,8 +1,8 @@
-import mariadb, { Pool } from 'mariadb';
+import mariadb from 'mariadb';
 
-export default defineNitroPlugin(async (_nitroApp) => {
+export const database = () => {
     const runtimeConfig = useRuntimeConfig();
-    const database: Pool = mariadb.createPool({
+    return mariadb.createPool({
         host: runtimeConfig.database_host,
         port: parseInt(runtimeConfig.database_port as string),
         database: runtimeConfig.database_name,
@@ -10,6 +10,4 @@ export default defineNitroPlugin(async (_nitroApp) => {
         password: runtimeConfig.database_password,
         multipleStatements: true
     });
-    console.log("Database connection established.");
-    // Temp, for testing purposes
-});
+};

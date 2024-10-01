@@ -2,7 +2,7 @@
     <header>
         <nav>
             <NuxtLink class="nav-link" active-class="active-nav-link" to="/">Home</NuxtLink>
-            <NuxtLink class="nav-link" active-class="active-nav-link" to="/graphs">Grafieken</NuxtLink>
+            <NuxtLink class="nav-link" active-class="active-nav-link" to="/graph">Grafieken</NuxtLink>
             <NuxtLink class="nav-link" active-class="active-nav-link" to="/table">Tabellen</NuxtLink>
             <a class="nav-link" href="https://github.com/SVKruik-Organization/SK-Metrics" target="_blank">Repository</a>
         </nav>
