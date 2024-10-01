@@ -1,60 +1,92 @@
-import { Pool } from "mariadb";
 import { LearningGoal4Result, LearningGoal4RawResult, LearningGoal4RawResultType } from "~/assets/customTypes";
-import { database } from "~/server/utils/database";
+import mariadb, { Pool, PoolConfig } from 'mariadb';
 
 export default defineEventHandler(async (): Promise<LearningGoal4Result> => {
-    const databaseConnection: Pool = database();
-    const data: Array<LearningGoal4RawResult> = await databaseConnection.query("SELECT time_taken, category, language, date_creation FROM learning_goal_2;");
+    const runtimeConfig = useRuntimeConfig();
+    const connection: Pool = mariadb.createPool(runtimeConfig.database as any as PoolConfig);
+    const data: Array<LearningGoal4RawResult> = await connection.query("SELECT ROUND(time_taken / 60) as time_taken_hours, category, language, date_creation FROM learning_goal_2;");
 
     // Type, Count
-    const categories: LearningGoal4RawResultType = {
+    const categoriesCount: LearningGoal4RawResultType = {
         total: new Map<string, number>(),
         firstHalf: new Map<string, number>(),
         secondHalf: new Map<string, number>(),
     };
-    const languages: LearningGoal4RawResultType = {
+    const categoriesHours: LearningGoal4RawResultType = {
+        total: new Map<string, number>(),
+        firstHalf: new Map<string, number>(),
+        secondHalf: new Map<string, number>(),
+    };
+    const languagesCount: LearningGoal4RawResultType = {
+        total: new Map<string, number>(),
+        firstHalf: new Map<string, number>(),
+        secondHalf: new Map<string, number>(),
+    };
+    const languagesHours: LearningGoal4RawResultType = {
         total: new Map<string, number>(),
         firstHalf: new Map<string, number>(),
         secondHalf: new Map<string, number>(),
     };
 
-    const midpointDate = new Date("2024-09-15T00:00:00.000Z");
+    const midpointDate = new Date("2024-10-20T00:00:00.000Z");
     data.forEach((item) => {
+        item.time_taken_hours = parseInt(item.time_taken_hours as unknown as string);
         const itemDate = new Date(item.date_creation);
         const isFirstHalf = itemDate <= midpointDate;
-
         // Process Categories
         item.category.split(",").forEach((category: string) => {
             category = category.trim();
-            categories.total.set(category, (categories.total.get(category) || 0) + 1);
+            categoriesCount.total.set(category, (categoriesCount.total.get(category) || 0) + 1);
+            categoriesHours.total.set(category, (categoriesHours.total.get(category) || 0) + item.time_taken_hours);
             if (isFirstHalf) {
-                categories.firstHalf.set(category, (categories.firstHalf.get(category) || 0) + 1);
-            } else categories.secondHalf.set(category, (categories.secondHalf.get(category) || 0) + 1);
+                categoriesCount.firstHalf.set(category, (categoriesCount.firstHalf.get(category) || 0) + 1);
+                categoriesHours.firstHalf.set(category, (categoriesHours.firstHalf.get(category) || 0) + item.time_taken_hours);
+            } else {
+                categoriesCount.secondHalf.set(category, (categoriesCount.secondHalf.get(category) || 0) + 1);
+                categoriesHours.secondHalf.set(category, (categoriesHours.secondHalf.get(category) || 0) + item.time_taken_hours);
+            }
         });
 
         // Process Languages
         item.language.split(",").forEach((language: string) => {
             language = language.trim();
-            languages.total.set(language, (languages.total.get(language) || 0) + 1);
-
+            languagesCount.total.set(language, (languagesCount.total.get(language) || 0) + 1);
+            languagesHours.total.set(language, (languagesHours.total.get(language) || 0) + item.time_taken_hours);
             if (isFirstHalf) {
-                languages.firstHalf.set(language, (languages.firstHalf.get(language) || 0) + 1);
-            } else languages.secondHalf.set(language, (languages.secondHalf.get(language) || 0) + 1);
+                languagesCount.firstHalf.set(language, (languagesCount.firstHalf.get(language) || 0) + 1);
+                languagesHours.firstHalf.set(language, (languagesHours.firstHalf.get(language) || 0) + item.time_taken_hours);
+            } else {
+                languagesCount.secondHalf.set(language, (languagesCount.secondHalf.get(language) || 0) + 1);
+                languagesHours.secondHalf.set(language, (languagesHours.secondHalf.get(language) || 0) + item.time_taken_hours);
+            }
         });
     });
 
     return {
-        "categoryNames": Array.from(categories.total.keys()),
+        // Categories
+        "categoryNames": Array.from(categoriesCount.total.keys()),
         "categoryCounts": {
-            total: Array.from(categories.total.values()),
-            firstHalf: Array.from(categories.firstHalf.values()),
-            secondHalf: Array.from(categories.secondHalf.values()),
+            total: Array.from(categoriesCount.total.values()),
+            firstHalf: Array.from(categoriesCount.firstHalf.values()),
+            secondHalf: Array.from(categoriesCount.secondHalf.values()),
         },
-        "languageNames": Array.from(languages.total.keys()),
+        "categoryHours": {
+            total: Array.from(categoriesHours.total.values()),
+            firstHalf: Array.from(categoriesHours.firstHalf.values()),
+            secondHalf: Array.from(categoriesHours.secondHalf.values()),
+        },
+
+        // Languages
+        "languageNames": Array.from(languagesCount.total.keys()),
         "languageCounts": {
-            total: Array.from(languages.total.values()),
-            firstHalf: Array.from(languages.firstHalf.values()),
-            secondHalf: Array.from(languages.secondHalf.values()),
+            total: Array.from(languagesCount.total.values()),
+            firstHalf: Array.from(languagesCount.firstHalf.values()),
+            secondHalf: Array.from(languagesCount.secondHalf.values()),
+        },
+        "languageHours": {
+            total: Array.from(languagesHours.total.values()),
+            firstHalf: Array.from(languagesHours.firstHalf.values()),
+            secondHalf: Array.from(languagesHours.secondHalf.values()),
         }
     };
 });

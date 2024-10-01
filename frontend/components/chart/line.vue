@@ -18,5 +18,5 @@ defineProps({
 <template>
     <Line v-if="data" :aria-label="label" :data="data" :options="options">
         Er ging iets mis tijdens het laden van de grafiek.</Line>
-    <p v-else>Er ging iets mis tijdens het laden van de grafiek.</p>
+    <strong v-else>Er ging iets mis tijdens het laden van de grafiek. Probeer het later nog een keer.</strong>
 </template>

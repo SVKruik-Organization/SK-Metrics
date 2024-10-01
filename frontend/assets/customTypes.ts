@@ -44,14 +44,16 @@ export type ChartData = {
 export type LearningGoal2Result = {
     "week": number,
     "avg_time_taken_percentage": number,
-    "avg_qa_iterations": number
+    "avg_qa_iterations": number,
+    "avg_help_needed": number
 }
 
 // Learning Goal 4 Unprocessed Incoming Result Item
 export type LearningGoal4RawResult = {
     "category": string,
     "language": string,
-    "date_creation": string
+    "date_creation": string,
+    "time_taken_hours": number
 }
 
 export type LearningGoal4RawResultType = {
@@ -70,6 +72,8 @@ export type LearningGoal4ResultType = {
 export type LearningGoal4Result = {
     "categoryNames": Array<string>
     "categoryCounts": LearningGoal4ResultType,
+    "categoryHours": LearningGoal4ResultType,
     "languageNames": Array<string>,
-    "languageCounts": LearningGoal4ResultType
+    "languageCounts": LearningGoal4ResultType,
+    "languageHours": LearningGoal4ResultType
 }

@@ -2,10 +2,10 @@
 import type { PropType } from 'vue';
 import { Radar } from 'vue-chartjs';
 import type { ChartData } from '~/assets/customTypes';
-import { Chart as ChartJS, Title, Tooltip, Legend, RadialLinearScale, Filler } from 'chart.js';
+import { Chart as ChartJS, Title, Tooltip, Legend, RadialLinearScale, Filler, PointElement, LineElement } from 'chart.js';
 
 // Setup
-ChartJS.register(Title, Tooltip, Legend, RadialLinearScale, Filler);
+ChartJS.register(Title, Tooltip, Legend, RadialLinearScale, Filler, PointElement, LineElement);
 
 // Props
 defineProps({
@@ -18,5 +18,5 @@ defineProps({
 <template>
     <Radar v-if="data" :aria-label="label" :data="data" :options="options">
         Er ging iets mis tijdens het laden van de grafiek.</Radar>
-    <p v-else>Er ging iets mis tijdens het laden van de grafiek.</p>
+    <strong v-else>Er ging iets mis tijdens het laden van de grafiek. Probeer het later nog een keer.</strong>
 </template>

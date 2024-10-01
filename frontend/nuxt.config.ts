@@ -1,15 +1,18 @@
 export default defineNuxtConfig({
     compatibilityDate: '2024-04-03',
-    devtools: { enabled: true },
+    devtools: { enabled: false },
     modules: ['@pinia/nuxt'],
     ssr: true,
     runtimeConfig: {
         // Database
-        database_host: process.env.DB_HOST,
-        database_port: process.env.DB_PORT,
-        database_name: process.env.DB_DATABASE,
-        database_username: process.env.DB_USERNAME,
-        database_password: process.env.DB_PASSWORD,
+        database: {
+            "host": process.env.DB_HOST,
+            "port": process.env.DB_PORT,
+            "database": process.env.DB_DATABASE,
+            "user": process.env.DB_USERNAME,
+            "password": process.env.DB_PASSWORD,
+            "multipleStatements": true
+        },
 
         // Uplink
         uplink_host: process.env.AMQP_HOST,

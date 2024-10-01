@@ -39,6 +39,25 @@ export function data2_2Parser(input: Array<LearningGoal2Result>): ChartData {
 }
 
 /**
+ * Format incoming data for Learning Goal 2.3 into Chart.JS format.
+ * @param input The data to parse.
+ * @returns The parsed data in Chart.JS format.
+ */
+export function data2_3Parser(input: Array<LearningGoal2Result>): ChartData {
+    return {
+        labels: input.map((entry) => `Week ${entry.week}`),
+        datasets: [
+            {
+                label: "Aantal vragen",
+                data: input.map((entry) => entry.avg_help_needed),
+                backgroundColor: "#FFFFFF",
+                borderColor: "#3572EF"
+            }
+        ]
+    }
+}
+
+/**
  * Format incoming data for Learning Goal 4.1 into Chart.JS format.
  * @param input The data to parse.
  * @returns The parsed data in Chart.JS format.
@@ -112,21 +131,21 @@ export function data_4_2Parser(input: LearningGoal4Result): Array<ChartData> {
             datasets: [
                 {
                     label: "Volledig",
-                    data: input.categoryCounts.total,
+                    data: input.categoryHours.total,
                     backgroundColor: "#3ABEF930",
                     borderColor: "#3ABEF9",
                     fill: true
                 },
                 {
                     label: "Eerste Helft",
-                    data: input.categoryCounts.firstHalf,
+                    data: input.categoryHours.firstHalf,
                     backgroundColor: "#3572EF30",
                     borderColor: "#3572EF",
                     fill: true
                 },
                 {
                     label: "Tweede Helft",
-                    data: input.categoryCounts.secondHalf,
+                    data: input.categoryHours.secondHalf,
                     backgroundColor: "#01204E30",
                     borderColor: "#01204E",
                     fill: true
@@ -138,21 +157,21 @@ export function data_4_2Parser(input: LearningGoal4Result): Array<ChartData> {
             datasets: [
                 {
                     label: "Volledig",
-                    data: input.languageCounts.total,
+                    data: input.languageHours.total,
                     backgroundColor: "#FFDE4D30",
                     borderColor: "#FFDE4D",
                     fill: true
                 },
                 {
                     label: "Eerste Helft",
-                    data: input.languageCounts.firstHalf,
+                    data: input.languageHours.firstHalf,
                     backgroundColor: "#FF822530",
                     borderColor: "#FF8225",
                     fill: true
                 },
                 {
                     label: "Tweede Helft",
-                    data: input.languageCounts.secondHalf,
+                    data: input.languageHours.secondHalf,
                     backgroundColor: "#EB5B0030",
                     borderColor: "#EB5B00",
                     fill: true
