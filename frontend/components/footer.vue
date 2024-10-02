@@ -13,12 +13,14 @@ footer {
     align-items: center;
     width: 100%;
     justify-content: flex-end;
-    height: 20px;
+    min-height: 20px;
     margin-bottom: 20px;
 }
 
 a {
     color: var(--font);
     text-decoration: none;
+    text-align: center;
+    width: 95%;
 }
 </style>

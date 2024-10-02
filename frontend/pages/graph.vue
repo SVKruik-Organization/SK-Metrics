@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ChartOptions } from 'chart.js';
 import type { ChartData } from '~/assets/customTypes';
 import { data2_1Parser, data2_2Parser, data2_3Parser, data_4_1Parser, data_4_2Parser } from '~/utils/data';
 
@@ -20,7 +21,7 @@ onMounted(async () => {
     goalData_2_3.value = JSON.parse(dataStorage.goalData_2_3 || "null");
 
     if (!goalData_2_1.value) {
-        const rawGoalData_2 = await $fetch("/api/goals/2");
+        const rawGoalData_2 = await $fetch("/api/graph/2");
         if (rawGoalData_2) {
             const parsedData2_1: ChartData = data2_1Parser(rawGoalData_2);
             const parsedData2_2: ChartData = data2_2Parser(rawGoalData_2);
@@ -42,7 +43,7 @@ onMounted(async () => {
     goalData_4_2.value = dataStorage.goalData_4_2 || [];
 
     if (!goalData_4_1.value || !goalData_4_1.value.length) {
-        const rawGoalData_4 = await $fetch("/api/goals/4");
+        const rawGoalData_4 = await $fetch("/api/graph/4");
         if (rawGoalData_4) {
             goalData_4_1.value = data_4_1Parser(rawGoalData_4);
             dataStorage.goalData_4_1 = goalData_4_1.value;
@@ -58,7 +59,7 @@ onMounted(async () => {
  * Default options for the chart.
  * @param title The title of the graph.
  */
-function getOptions(title: string, min: number, max: number, type: string = "line") {
+function getOptions(title: string, min: number, max: number, type: string = "line"): ChartOptions {
     const options = {
         responsive: true,
         plugins: {
@@ -97,6 +98,11 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
                 Tijdens mijn stage houd ik deze meetpunten in een database bij, zodat hier altijd de nieuwste resultaten
                 te zien zijn. Zie ook de <NuxtLink to="/table">tabellen</NuxtLink> pagina voor nog meer interessante en
                 ruwe data.
+            </p>
+            <p>
+                Om het systeem te besparen worden sommige datasets in de browser (session storage) opgeslagen. Dit
+                betekent dat de data niet opnieuw opgehaald hoeft te worden bij het herladen van de pagina. Mocht u de
+                nieuwste data willen hebben, klik dan rechtsboven op de refresh knop.
             </p>
         </article>
         <span class="splitter"></span>

@@ -5,7 +5,7 @@ import type { DateFormat } from "@/assets/customTypes";
  * @param datetime Overwrite Date.now.
  * @returns Object with date, time, now and the full date string.
  */
-export function getDate(datetime: Date | undefined): DateFormat {
+export function getDate(datetime: Date | undefined | string): DateFormat {
     let targetDate: Date = new Date();
     if (datetime) targetDate = new Date(datetime);
     const today: Date = new Date(targetDate.toLocaleString("en-US"));
@@ -31,4 +31,17 @@ export function getDate(datetime: Date | undefined): DateFormat {
     }
 
     return { date, time, today, fullDate };
+}
+
+/**
+ * Convert DD-MM-YYYY to YYYY-MM-DD.
+ * @param date The input date.
+ * @returns The input date in ISO format.
+ */
+export function formatISODate(date: string): string {
+    // DD-MM-YYYY
+    const exploded: Array<string> = date.split('-');
+
+    // YYYY-MM-DD
+    return `${exploded[2]}-${exploded[1]}-${exploded[0]}`;
 }

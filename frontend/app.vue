@@ -2,17 +2,30 @@
 import type { RouteLocation } from "vue-router";
 import "~/assets/css/base.css";
 
-// Setup
-const route = useRoute();
+// Life Cycle
+onMounted(() => {
+    setTimeout(() => {
+        setDocumentTitle(useRoute().path);
+    }, 100);
+});
 
 // Watchers
-watch(() => route, (to: RouteLocation, _from: RouteLocation) => {
-    let suffix: string = to.path.split("/")[1];
-    if (suffix.length) {
-        suffix = suffix.charAt(0).toUpperCase() + suffix.slice(1);
-    } else suffix = "Home";
-    document.title = `SK Metrics | ${suffix}`;
+watch(useRoute(), (to: RouteLocation, _from: RouteLocation) => {
+    setDocumentTitle(to.path);
 });
+
+// Methods
+
+/**
+ * Set the document title based on the route path.
+ * @param title The route path.
+ */
+function setDocumentTitle(title: string): void {
+    const split = title.split("/");
+    if (split[1]) {
+        document.title = `SK Metrics - ${split[1].charAt(0).toUpperCase() + split[1].slice(1)}`;
+    } else document.title = "SK Metrics | Home";
+}
 </script>
 
 <template>

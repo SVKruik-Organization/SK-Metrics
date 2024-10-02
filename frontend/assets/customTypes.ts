@@ -1,12 +1,30 @@
 // Learning Goal Item
 export type LearningGoalEntry = {
-    "id": number,
     "weekNumber": number,
     "ticketNumber": number,
     "timePlanned": number,
     "timeTaken": number,
-    "helpNeeded": boolean,
-    "qaIterations": number
+    "timeTakenPercentage": number,
+    "helpNeeded": number,
+    "qaIterations": number,
+    "dateCreation": string,
+    "dateUpdated": string
+}
+
+// Raw Learning Goal Item
+export type LearningGoalEntryRaw = {
+    "id": number,
+    "week": number,
+    "ticket": number,
+    "time_planned": number,
+    "time_taken": number,
+    "time_taken_percentage": number,
+    "help_needed": number,
+    "qa_iterations": number,
+    "category": string,
+    "language": string,
+    "date_creation": string,
+    "date_updated": string
 }
 
 // Date Formatter
@@ -76,4 +94,28 @@ export type LearningGoal4Result = {
     "languageNames": Array<string>,
     "languageCounts": LearningGoal4ResultType,
     "languageHours": LearningGoal4ResultType
+}
+
+export enum TableHeaderType {
+    NUMBER = "number",
+    PERCENTAGE = "percentage",
+    DATE = "date",
+    STRING = "string"
+}
+
+// Generic Table Header Item
+interface TableHeaderItem {
+    "id": number,
+    "label": string,
+    "type": TableHeaderType
+}
+
+// Table All Data
+export interface TableHeaderAllItem extends TableHeaderItem {
+    "value": keyof LearningGoalEntry
+}
+
+export type TableAllData = {
+    "points": Array<LearningGoalEntry>,
+    "tableHeaders": Array<TableHeaderAllItem>
 }

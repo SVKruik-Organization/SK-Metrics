@@ -109,6 +109,26 @@ body {
     font-size: 14px;
 }
 
+.reloading {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.reloading i {
+    animation: rotate 0.8s infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
 /* HTML Tags */
 a,
 button,

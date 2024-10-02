@@ -5,6 +5,7 @@ export default defineEventHandler(async (): Promise<LearningGoal4Result> => {
     const runtimeConfig = useRuntimeConfig();
     const connection: Pool = mariadb.createPool(runtimeConfig.database as any as PoolConfig);
     const data: Array<LearningGoal4RawResult> = await connection.query("SELECT ROUND(time_taken / 60) as time_taken_hours, category, language, date_creation FROM learning_goal_2;");
+    connection.end();
 
     // Type, Count
     const categoriesCount: LearningGoal4RawResultType = {
