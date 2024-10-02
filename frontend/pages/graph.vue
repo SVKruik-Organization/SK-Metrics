@@ -95,20 +95,8 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
             </p>
             <p>
                 Tijdens mijn stage houd ik deze meetpunten in een database bij, zodat hier altijd de nieuwste resultaten
-                te zien zijn. Zie ook de <NuxtLink class="link-text" to="/table">tabellen</NuxtLink> pagina voor nog
-                meer
-                interessante en ruwe data.
-            </p>
-            <span class="splitter splitter-light"></span>
-            <p>
-                <strong>Belangrijk!</strong> Dit project geldt niet voor alle leerdoelen.
-                Sommige leerdoelen verwerk en bewijs ik op een andere manier, en zijn daarom niet opgenomen in dit
-                project. Ik houd de Portfolio nummering wel aan, dus daarom begin ik bij leerdoel 2.
-            </p>
-            <p>
-                Houd er daarnaast rekening mee dat ik hier niet alle SMART leerdoelen uitwerk. Raadpleeg mijn portfolio
-                voor de leerdoelen, dit zijn enkel de resultaten voor de <strong>M</strong> in SMART ter ondersteuning
-                van bewijsvoering.
+                te zien zijn. Zie ook de <NuxtLink to="/table">tabellen</NuxtLink> pagina voor nog meer interessante en
+                ruwe data.
             </p>
         </article>
         <span class="splitter"></span>
@@ -118,8 +106,8 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
                 Voor dit leerdoel heb ik verschillende data bijgehouden gedurende mijn stage. Ik presenteer deze data
                 door middel van de onderstaande grafieken die een goed beeld geven van mijn inspanning en resultaten.
                 De grafieken werken met een precisie van een week, en zijn dus gemiddelden per week. Voor exacte
-                resultaten verwijs ik naar de <NuxtLink class="link-text" to="/table">tabellen</NuxtLink>. Het concrete
-                doel van dit leerdoel is door middel van meer vragen te stellen (in plaats van het volledig zelf uit te
+                resultaten verwijs ik naar de <NuxtLink to="/table">tabellen</NuxtLink>. Het concrete doel van dit
+                leerdoel is door middel van meer vragen te stellen (in plaats van het volledig zelf uit te
                 zoeken) de kwaliteit van mijn werk te verbeteren. Minder tijd besteed en minder QA iteraties voordat de
                 ticket echt af is.
             </p>
@@ -133,8 +121,8 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
             </p>
             <p>
                 Dit is het gemiddelde per week. Ik houd per taak bij hoeveel procent ik hier aan werk, en bereken dan
-                per week een gemiddelde. In het <NuxtLink class="link-text" to="/table">tabellen</NuxtLink> overzicht
-                zijn de rijen apart inzichtelijk.
+                per week een gemiddelde. In het <NuxtLink to="/table">tabellen</NuxtLink> overzicht zijn de rijen apart
+                inzichtelijk.
             </p>
         </article>
         <ClientOnly>
@@ -174,7 +162,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         </article>
         <ClientOnly>
             <ChartLine class="chart" label="Hoeveelheid vragen gesteld gemiddeld per taak per week." v-if="goalData_2_3"
-                :data="goalData_2_3" :options="getOptions('Vragen gesteld per taak gemiddeld per week', 0, 0.8)">
+                :data="goalData_2_3" :options="getOptions('Vragen gesteld per taak gemiddeld per week', 0, 3)">
             </ChartLine>
             <small class="graph-note">Hoger of lager is neutraal.</small>
         </ClientOnly>

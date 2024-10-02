@@ -109,11 +109,6 @@ body {
     font-size: 14px;
 }
 
-.link-text {
-    text-decoration: underline;
-    color: var(--link);
-}
-
 /* HTML Tags */
 a,
 button,
@@ -131,8 +126,10 @@ i {
     padding: 0;
 }
 
-a {
-    text-decoration: none;
+a,
+.link-text {
+    text-decoration: underline;
+    color: var(--link);
 }
 
 a,

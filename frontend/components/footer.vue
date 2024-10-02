@@ -16,4 +16,9 @@ footer {
     height: 20px;
     margin-bottom: 20px;
 }
+
+a {
+    color: var(--font);
+    text-decoration: none;
+}
 </style>
