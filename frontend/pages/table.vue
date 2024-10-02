@@ -175,4 +175,11 @@ td {
     padding: 8px;
     text-align: left;
 }
+
+@media (width <=570px) {
+    .table-container {
+        width: 100%;
+        align-self: flex-start;
+    }
+}
 </style>

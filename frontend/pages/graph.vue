@@ -225,6 +225,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
 .radar-chart-wrapper {
     width: 400px;
     display: flex;
+    flex-direction: column;
 }
 
 .graph-note {

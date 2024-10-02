@@ -28,6 +28,12 @@ body {
     gap: 20px;
 }
 
+@media (width <=570px) {
+    .content-wrapper {
+        align-items: center;
+    }
+}
+
 .splitter {
     width: 100%;
     height: 2px;

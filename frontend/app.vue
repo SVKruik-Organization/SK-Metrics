@@ -45,6 +45,7 @@ function setDocumentTitle(title: string): void {
     justify-content: space-between;
     gap: 30px;
     width: 100%;
+    min-height: 100vh;
 }
 
 .top-content {
