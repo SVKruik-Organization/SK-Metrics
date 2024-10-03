@@ -1,4 +1,5 @@
-import { TableHeaderType, type ChartData, type LearningGoal2Result, type LearningGoal4Result, type TableHeaderAllItem, type TableHeaderGenericItem, type TableSingleData } from "~/assets/customTypes";
+import type { ChartDataset } from "chart.js";
+import { TableHeaderType, type ChartData, type LearningGoal2Result, type LearningGoal4Result, type TableHeaderLearningGoal_2_Item, type TableDataLearningGoal_2, type TableHeaderGenericItem, type TableDataLearningGoal_4_Item } from "~/assets/customTypes";
 
 /**
  * Format incoming data for Learning Goal 2.1 into Chart.JS format.
@@ -185,12 +186,12 @@ export function graph_4_2_Parser(input: LearningGoal4Result): Array<ChartData> {
  * Parse a single dataset into a table format.
  * @param input The chart data to parse.
  * @param type The type of the table header.
- * @returns The parsed data in table format.
+ * @returns The parsed data in table single format.
  */
-export function table_2_Parser(input: ChartData, type: TableHeaderType): TableSingleData {
+export function table_2_Parser(input: ChartData, type: TableHeaderType): TableDataLearningGoal_2 {
     const dataset: Array<number> = input.datasets[0].data;
 
-    const tableHeaders: Array<TableHeaderGenericItem> = [{
+    const tableHeaders: Array<TableHeaderLearningGoal_2_Item> = [{
         "label": "Week",
         "type": TableHeaderType.NUMBER,
         "key": 'week'
@@ -204,9 +205,9 @@ export function table_2_Parser(input: ChartData, type: TableHeaderType): TableSi
         "key": 'delta'
     }];
 
-    const payload: TableSingleData = {
+    return {
         "tableHeaders": tableHeaders,
-        "points": dataset.map((entry, index) => {
+        "points": dataset.map((entry: number, index: number) => {
             return {
                 "week": +input.labels[index].split(" ")[1],
                 "value": entry,
@@ -214,6 +215,74 @@ export function table_2_Parser(input: ChartData, type: TableHeaderType): TableSi
             }
         })
     }
-
-    return payload;
 }
+
+/**
+ * Parse a single dataset into a table format.
+ * @param input The chart data to parse.
+ * @param type The type of the table header.
+ * @returns The parsed data in table multi format.
+ */
+export function table_4_Parser(input: Array<ChartData>, type: TableHeaderType): Array<TableDataLearningGoal_4_Item> {
+    // In Count
+    const countDataset_Category: Array<ChartDataset> = input[0].datasets;
+    const countLabels_Category: Array<string> = input[0].labels;
+    const countDataset_Language: Array<ChartDataset> = input[1].datasets;
+    const countLabels_Language: Array<string> = input[1].labels;
+
+    // In Hours
+    const hoursLabels_Category: Array<ChartDataset> = input[2].datasets;
+    const hoursDataset_Category: Array<string> = input[2].labels;
+    const hoursDataset_Language: Array<ChartDataset> = input[3].datasets;
+    const hoursLabels_Language: Array<string> = input[3].labels;
+
+    return [{
+        "label": "Werkzaamheden per categorie in aantal",
+        "tableHeaders": headerMapper(countLabels_Category, type),
+        "points": pointMapper(countDataset_Category)
+    },
+    {
+        "label": "Werkzaamheden per categorie in uren",
+        "tableHeaders": headerMapper(hoursDataset_Category, type),
+        "points": pointMapper(hoursLabels_Category)
+    },
+    {
+        "label": "Werkzaamheden per taal in aantal",
+        "tableHeaders": headerMapper(countLabels_Language, type),
+        "points": pointMapper(countDataset_Language)
+    },
+    {
+        "label": "Werkzaamheden per taal in uren",
+        "tableHeaders": headerMapper(hoursLabels_Language, type),
+        "points": pointMapper(hoursDataset_Language)
+    }]
+}
+
+/**
+ * Extract the header labels from the chart data.
+ * @param input The data to parse.
+ * @param type The type of the header.
+ * @returns The header labels in the correct format.
+ */
+function headerMapper(input: Array<string>, type: TableHeaderType): Array<TableHeaderGenericItem> {
+    const labels: Array<TableHeaderGenericItem> = input.map((label: string) => {
+        return {
+            "label": label,
+            "type": type
+        }
+    });
+    labels.unshift({
+        "label": "Stage Periode",
+        "type": TableHeaderType.STRING
+    });
+    return labels;
+}
+
+/**
+ * Extract the dataset data points from the chart data.
+ * @param input The data to parse.
+ * @returns The data points in the correct format.
+ */
+function pointMapper(input: Array<ChartDataset>): Array<any> {
+    return input.map((dataset: ChartDataset) => [dataset.label, ...dataset.data])
+} 

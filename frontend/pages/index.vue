@@ -2,11 +2,11 @@
     <section class="content-wrapper">
         <article class="flex-col">
             <p>
-                Welkom op SK Metrics. Ik gebruik deze website en branding nu tijdelijk voor mijn stage. Hier zal ik
-                mijn voortgang bijhouden en de resultaten van mijn werkzaamheden delen. Voor mijn stage leerdoelen die
-                beschreven staan in mijn SOP houd ik gedurende mijn stage verschillende data bij. Deze data zal ik
-                verwerken en analyseren om zo tot conclusies te komen. Daarnaast stel ik het tentoon in grafieken
-                en tabellen die je kunt vinden op de <NuxtLink to="/graph">Grafieken</NuxtLink> en <NuxtLink
+                Welkom op SK Metrics. Ik gebruik dit domein en branding nu tijdelijk voor mijn stage opdracht. Hier zal
+                ik mijn voortgang bijhouden en de resultaten van mijn werkzaamheden delen. Voor mijn stage leerdoelen
+                die beschreven staan in mijn SOP houd ik gedurende mijn stage verschillende data bij. Deze data zal ik
+                verwerken en analyseren om zo mijn progressie te meten en bewijzen. Daarnaast stel ik het tentoon in
+                grafieken en tabellen die te vinden zijn op de <NuxtLink to="/graph">Grafieken</NuxtLink> en <NuxtLink
                     to="/table">Tabellen</NuxtLink> pagina's.
             </p>
             <span class="splitter splitter-light"></span>

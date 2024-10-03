@@ -10,8 +10,6 @@ export type LearningGoalEntry = {
     "dateCreation": string,
     "dateUpdated": string
 }
-
-// Raw Learning Goal Item
 export type LearningGoalEntryRaw = {
     "id": number,
     "week": number,
@@ -49,16 +47,17 @@ export type UplinkMessage = {
 // Chart Data
 export type ChartData = {
     "labels": Array<string>,
-    "datasets": Array<{
-        "label": string,
-        "data": Array<number>,
-        "backgroundColor"?: Array<string> | string,
-        "borderColor"?: string,
-        "fill"?: boolean
-    }>
+    "datasets": Array<ChartDataset>
+}
+export type ChartDataset = {
+    "label": string,
+    "data": Array<number>,
+    "backgroundColor"?: Array<string> | string,
+    "borderColor"?: string,
+    "fill"?: boolean
 }
 
-// Learning Goal 2 Result Item
+// Learning Goal 2
 export type LearningGoal2Result = {
     "week": number,
     "avg_time_taken_percentage": number,
@@ -66,27 +65,23 @@ export type LearningGoal2Result = {
     "avg_help_needed": number
 }
 
-// Learning Goal 4 Unprocessed Incoming Result Item
+// Learning Goal 4
 export type LearningGoal4RawResult = {
     "category": string,
     "language": string,
     "date_creation": string,
     "time_taken_hours": number
 }
-
 export type LearningGoal4RawResultType = {
     "total": Map<string, number>,
     "firstHalf": Map<string, number>,
     "secondHalf": Map<string, number>
 }
-
 export type LearningGoal4ResultType = {
     "total": Array<number>,
     "firstHalf": Array<number>,
     "secondHalf": Array<number>
 }
-
-// Learning Goal 4 Result Item
 export type LearningGoal4Result = {
     "categoryNames": Array<string>
     "categoryCounts": LearningGoal4ResultType,
@@ -96,6 +91,7 @@ export type LearningGoal4Result = {
     "languageHours": LearningGoal4ResultType
 }
 
+// Table Header Types
 export enum TableHeaderType {
     NUMBER = "number",
     PERCENTAGE = "percentage",
@@ -103,45 +99,47 @@ export enum TableHeaderType {
     STRING = "string"
 }
 
-// Generic Table Header Item
-interface TableHeaderItem {
+// Generic Table Header Interface
+export interface TableHeaderGenericItem {
     "id"?: number,
     "label": string,
     "type": TableHeaderType
 }
 
 // Table All Data
-export interface TableHeaderAllItem extends TableHeaderItem {
-    "value": keyof LearningGoalEntry
-}
-
-export interface TableHeaderGenericItem extends TableHeaderItem {
-    "key": keyof TableSingleData["points"][0]
-}
-
 export type TableAllData = {
     "points": Array<LearningGoalEntry>,
     "tableHeaders": Array<TableHeaderAllItem>
 }
+export interface TableHeaderAllItem extends TableHeaderGenericItem {
+    "value": keyof LearningGoalEntry
+}
 
-export type TableSingleData = {
+// Table - Learning Goal 2
+export interface TableHeaderLearningGoal_2_Item extends TableHeaderGenericItem {
+    "key": keyof TableDataLearningGoal_2["points"][0]
+}
+export type TableDataLearningGoal_2 = {
     "points": Array<{
         "week": number,
         "value": number,
         "delta": number
     }>,
-    "tableHeaders": Array<TableHeaderGenericItem>
+    "tableHeaders": Array<TableHeaderLearningGoal_2_Item>
 }
-
-// Learning Goal Data Props - Single
-export type LearningGoalSingleDatasets = {
+export type LearningGoal_2_Datasets = {
     "goalData_2_1": any,
     "goalData_2_2": any,
     "goalData_2_3": any
 }
 
-// Learning Goal Data Props - Array
-export type LearningGoalArrayDatasets = {
+// Table - Learning Goal 4
+export type TableDataLearningGoal_4_Item = {
+    "label": string,
+    "points": Array<any>,
+    "tableHeaders": Array<TableHeaderGenericItem>
+}
+export type LearningGoal_4_Datasets = {
     "goalData_4_1": any,
     "goalData_4_2": any
 }
