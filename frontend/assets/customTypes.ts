@@ -105,7 +105,7 @@ export enum TableHeaderType {
 
 // Generic Table Header Item
 interface TableHeaderItem {
-    "id": number,
+    "id"?: number,
     "label": string,
     "type": TableHeaderType
 }
@@ -115,7 +115,33 @@ export interface TableHeaderAllItem extends TableHeaderItem {
     "value": keyof LearningGoalEntry
 }
 
+export interface TableHeaderGenericItem extends TableHeaderItem {
+    "key": keyof TableSingleData["points"][0]
+}
+
 export type TableAllData = {
     "points": Array<LearningGoalEntry>,
     "tableHeaders": Array<TableHeaderAllItem>
+}
+
+export type TableSingleData = {
+    "points": Array<{
+        "week": number,
+        "value": number,
+        "delta": number
+    }>,
+    "tableHeaders": Array<TableHeaderGenericItem>
+}
+
+// Learning Goal Data Props - Single
+export type LearningGoalSingleDatasets = {
+    "goalData_2_1": any,
+    "goalData_2_2": any,
+    "goalData_2_3": any
+}
+
+// Learning Goal Data Props - Array
+export type LearningGoalArrayDatasets = {
+    "goalData_4_1": any,
+    "goalData_4_2": any
 }

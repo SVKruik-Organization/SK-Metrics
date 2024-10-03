@@ -1,11 +1,11 @@
-import type { ChartData, LearningGoal2Result, LearningGoal4Result } from "~/assets/customTypes";
+import { TableHeaderType, type ChartData, type LearningGoal2Result, type LearningGoal4Result, type TableHeaderAllItem, type TableHeaderGenericItem, type TableSingleData } from "~/assets/customTypes";
 
 /**
  * Format incoming data for Learning Goal 2.1 into Chart.JS format.
  * @param input The data to parse.
  * @returns The parsed data in Chart.JS format.
  */
-export function data2_1Parser(input: Array<LearningGoal2Result>): ChartData {
+export function graph_2_1_Parser(input: Array<LearningGoal2Result>): ChartData {
     return {
         labels: input.map((entry) => `Week ${entry.week}`),
         datasets: [
@@ -24,7 +24,7 @@ export function data2_1Parser(input: Array<LearningGoal2Result>): ChartData {
  * @param input The data to parse.
  * @returns The parsed data in Chart.JS format.
  */
-export function data2_2Parser(input: Array<LearningGoal2Result>): ChartData {
+export function graph_2_2_Parser(input: Array<LearningGoal2Result>): ChartData {
     return {
         labels: input.map((entry) => `Week ${entry.week}`),
         datasets: [
@@ -43,7 +43,7 @@ export function data2_2Parser(input: Array<LearningGoal2Result>): ChartData {
  * @param input The data to parse.
  * @returns The parsed data in Chart.JS format.
  */
-export function data2_3Parser(input: Array<LearningGoal2Result>): ChartData {
+export function graph_2_3_Parser(input: Array<LearningGoal2Result>): ChartData {
     return {
         labels: input.map((entry) => `Week ${entry.week}`),
         datasets: [
@@ -62,7 +62,7 @@ export function data2_3Parser(input: Array<LearningGoal2Result>): ChartData {
  * @param input The data to parse.
  * @returns The parsed data in Chart.JS format.
  */
-export function data_4_1Parser(input: LearningGoal4Result): Array<ChartData> {
+export function graph_4_1_Parser(input: LearningGoal4Result): Array<ChartData> {
     return [
         {
             labels: input.categoryNames,
@@ -124,7 +124,7 @@ export function data_4_1Parser(input: LearningGoal4Result): Array<ChartData> {
  * @param input The data to parse.
  * @returns The parsed data in Chart.JS format.
  */
-export function data_4_2Parser(input: LearningGoal4Result): Array<ChartData> {
+export function graph_4_2_Parser(input: LearningGoal4Result): Array<ChartData> {
     return [
         {
             labels: input.categoryNames,
@@ -179,4 +179,41 @@ export function data_4_2Parser(input: LearningGoal4Result): Array<ChartData> {
             ]
         }
     ]
+}
+
+/**
+ * Parse a single dataset into a table format.
+ * @param input The chart data to parse.
+ * @param type The type of the table header.
+ * @returns The parsed data in table format.
+ */
+export function table_2_Parser(input: ChartData, type: TableHeaderType): TableSingleData {
+    const dataset: Array<number> = input.datasets[0].data;
+
+    const tableHeaders: Array<TableHeaderGenericItem> = [{
+        "label": "Week",
+        "type": TableHeaderType.NUMBER,
+        "key": 'week'
+    }, {
+        "label": "Waarde",
+        "type": type,
+        "key": 'value'
+    }, {
+        "label": "Verschil",
+        "type": TableHeaderType.NUMBER,
+        "key": 'delta'
+    }];
+
+    const payload: TableSingleData = {
+        "tableHeaders": tableHeaders,
+        "points": dataset.map((entry, index) => {
+            return {
+                "week": +input.labels[index].split(" ")[1],
+                "value": entry,
+                "delta": index === 0 ? 0 : +(entry - dataset[index - 1]).toFixed(2),
+            }
+        })
+    }
+
+    return payload;
 }

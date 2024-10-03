@@ -85,6 +85,10 @@ body {
     opacity: 1 !important;
 }
 
+.hidden {
+    opacity: 0 !important;
+}
+
 .ellipsis {
     white-space: nowrap;
     overflow: hidden;
@@ -135,6 +139,14 @@ body {
     }
 }
 
+.text-color-red {
+    color: red;
+}
+
+.text-color-green {
+    color: green;
+}
+
 /* HTML Tags */
 a,
 button,
@@ -171,7 +183,7 @@ ol {
 }
 
 select::-ms-expand {
-    display: none;
+    display: none !important;
 }
 
 menu {

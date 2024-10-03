@@ -1,56 +1,14 @@
 <script setup lang="ts">
 import type { ChartOptions } from 'chart.js';
 import type { ChartData } from '~/assets/customTypes';
-import { data2_1Parser, data2_2Parser, data2_3Parser, data_4_1Parser, data_4_2Parser } from '~/utils/data';
 
-// Setup
-const dataStorage = useDataStorage();
-
-// Reactive Data
-const goalData_2_1: Ref<null | ChartData> = ref(null);
-const goalData_2_2: Ref<null | ChartData> = ref(null);
-const goalData_2_3: Ref<null | ChartData> = ref(null);
-const goalData_4_1: Ref<null | Array<ChartData>> = ref(null);
-const goalData_4_2: Ref<null | Array<ChartData>> = ref(null);
-
-// Data Fetch
-onMounted(async () => {
-    // Goal 2
-    goalData_2_1.value = JSON.parse(dataStorage.goalData_2_1 || "null");
-    goalData_2_2.value = JSON.parse(dataStorage.goalData_2_2 || "null");
-    goalData_2_3.value = JSON.parse(dataStorage.goalData_2_3 || "null");
-
-    if (!goalData_2_1.value) {
-        const rawGoalData_2 = await $fetch("/api/graph/2");
-        if (rawGoalData_2) {
-            const parsedData2_1: ChartData = data2_1Parser(rawGoalData_2);
-            const parsedData2_2: ChartData = data2_2Parser(rawGoalData_2);
-            const parsedData2_3: ChartData = data2_3Parser(rawGoalData_2);
-
-            goalData_2_1.value = parsedData2_1;
-            dataStorage.goalData_2_1 = JSON.stringify(parsedData2_1);
-
-            goalData_2_2.value = parsedData2_2;
-            dataStorage.goalData_2_2 = JSON.stringify(parsedData2_2);
-
-            goalData_2_3.value = parsedData2_3;
-            dataStorage.goalData_2_3 = JSON.stringify(parsedData2_3);
-        }
-    }
-
-    // Goal 4
-    goalData_4_1.value = dataStorage.goalData_4_1 || [];
-    goalData_4_2.value = dataStorage.goalData_4_2 || [];
-
-    if (!goalData_4_1.value || !goalData_4_1.value.length) {
-        const rawGoalData_4 = await $fetch("/api/graph/4");
-        if (rawGoalData_4) {
-            goalData_4_1.value = data_4_1Parser(rawGoalData_4);
-            dataStorage.goalData_4_1 = goalData_4_1.value;
-            goalData_4_2.value = data_4_2Parser(rawGoalData_4);
-            dataStorage.goalData_4_2 = goalData_4_2.value;
-        }
-    }
+// Props
+defineProps({
+    "goalData_2_1": { type: [Object, null] as PropType<ChartData | null>, required: true },
+    "goalData_2_2": { type: [Object, null] as PropType<ChartData | null>, required: true },
+    "goalData_2_3": { type: [Object, null] as PropType<ChartData | null>, required: true },
+    "goalData_4_1": { type: Array as PropType<Array<ChartData>>, required: true },
+    "goalData_4_2": { type: Array as PropType<Array<ChartData>>, required: true }
 });
 
 // Methods
@@ -96,7 +54,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
             </p>
             <p>
                 Tijdens mijn stage houd ik deze meetpunten in een database bij, zodat hier altijd de nieuwste resultaten
-                te zien zijn. Zie ook de <NuxtLink to="/table">tabellen</NuxtLink> pagina voor nog meer interessante en
+                te zien zijn. Zie ook de <NuxtLink to="/table">Tabellen</NuxtLink> pagina voor nog meer interessante en
                 ruwe data.
             </p>
             <p>
@@ -112,7 +70,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
                 Voor dit leerdoel heb ik verschillende data bijgehouden gedurende mijn stage. Ik presenteer deze data
                 door middel van de onderstaande grafieken die een goed beeld geven van mijn inspanning en resultaten.
                 De grafieken werken met een precisie van een week, en zijn dus gemiddelden per week. Voor exacte
-                resultaten verwijs ik naar de <NuxtLink to="/table">tabellen</NuxtLink>. Het concrete doel van dit
+                resultaten verwijs ik naar de <NuxtLink to="/table">Tabellen</NuxtLink>. Het concrete doel van dit
                 leerdoel is door middel van meer vragen te stellen (in plaats van het volledig zelf uit te
                 zoeken) de kwaliteit van mijn werk te verbeteren. Minder tijd besteed en minder QA iteraties voordat de
                 ticket echt af is.
@@ -127,7 +85,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
             </p>
             <p>
                 Dit is het gemiddelde per week. Ik houd per taak bij hoeveel procent ik hier aan werk, en bereken dan
-                per week een gemiddelde. In het <NuxtLink to="/table">tabellen</NuxtLink> overzicht zijn de rijen apart
+                per week een gemiddelde. In het <NuxtLink to="/table">Tabellen</NuxtLink> overzicht zijn de rijen apart
                 inzichtelijk.
             </p>
         </article>
@@ -225,11 +183,18 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
 .radar-chart-wrapper {
     width: 400px;
     display: flex;
-    flex-direction: column;
 }
 
 .graph-note {
     width: 100%;
     text-align: center;
+}
+
+@media (width <=820px) {
+    .radar-chart-wrapper {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
 }
 </style>

@@ -2,18 +2,12 @@
     <section class="content-wrapper">
         <article class="flex-col">
             <p>
-                Welkom op SK Metrics. Dit is de website waar ik nu tijdelijk tijdens mijn stage aan werk. Hier zal ik
+                Welkom op SK Metrics. Ik gebruik deze website en branding nu tijdelijk voor mijn stage. Hier zal ik
                 mijn voortgang bijhouden en de resultaten van mijn werkzaamheden delen. Voor mijn stage leerdoelen die
                 beschreven staan in mijn SOP houd ik gedurende mijn stage verschillende data bij. Deze data zal ik
-                verwerken en analyseren om zo tot conclusies te komen. Daarnaast laat stel ik het tentoon in grafieken
-                en tabellen die je kunt vinden op de <NuxtLink to="/graph">grafieken</NuxtLink> en <NuxtLink
-                    to="/table">tabellen</NuxtLink> pagina's.
-            </p>
-            <p>
-                Na afloop van mijn stage wordt de content van deze website elders opgeslagen, en vervangen met mijn
-                eigen SK Metrics website. <a href="https://github.com/SVKruik/HvA-NL-J1" target="_blank">Hier</a> is een
-                link naar de repository waar deze code dan te vinden zal zijn. Voor nu kunt u via de navigatiebalk naar
-                de actuele repository.
+                verwerken en analyseren om zo tot conclusies te komen. Daarnaast stel ik het tentoon in grafieken
+                en tabellen die je kunt vinden op de <NuxtLink to="/graph">Grafieken</NuxtLink> en <NuxtLink
+                    to="/table">Tabellen</NuxtLink> pagina's.
             </p>
             <span class="splitter splitter-light"></span>
             <p>

@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// Setup
-const dataStorage = useDataStorage();
-
 // Reactive Data
 const refreshing: Ref<boolean> = ref(false);
 const navBarOpen: Ref<boolean> = ref(false);
@@ -16,13 +13,12 @@ watch(useRoute(), () => {
 /**
  * Refresh the content on the page.
  */
-function handleRefresh(): void {
+async function handleRefresh(): Promise<void> {
     if (refreshing.value) return;
-    dataStorage.reset();
     refreshing.value = true;
-    setTimeout(() => {
-        window.location.reload();
-    }, 1000);
+    await useFetchGoal2(true);
+    await useFetchGoal4(true);
+    refreshing.value = false;
 }
 
 /**
@@ -38,7 +34,9 @@ function toggleNavbar() {
         <span class="overlay" :class="{ 'overlay-open': navBarOpen }" @click="toggleNavbar"></span>
         <nav class="flex compact-nav">
             <div class="flex">
-                <img src="/Logo.png" alt="Logo" />
+                <ClientOnly>
+                    <img src="/Logo.png" alt="Logo" />
+                </ClientOnly>
                 <h2 class="title">SK Metrics</h2>
             </div>
             <button type="button" class="nav-button" @click="toggleNavbar" :class="{ 'nav-button-open': !navBarOpen }">
