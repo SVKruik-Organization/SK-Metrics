@@ -86,7 +86,7 @@ body {
 }
 
 .hidden {
-    opacity: 0 !important;
+    display: none !important;
 }
 
 .ellipsis {
@@ -145,6 +145,10 @@ body {
 
 .text-color-green {
     color: green;
+}
+
+.text-color-blue {
+    color: blue;
 }
 
 /* HTML Tags */

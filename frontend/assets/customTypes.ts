@@ -65,6 +65,15 @@ export type LearningGoal2Result = {
     "avg_help_needed": number
 }
 
+// Learning Goal 3
+export type LearningGoal3Result = {
+    "week": number,
+    "avg_time_planned": number,
+    "avg_time_taken": number,
+    "avg_incidents": number,
+    "avg_extras": number
+}
+
 // Learning Goal 4
 export type LearningGoal4RawResult = {
     "category": string,
@@ -77,7 +86,7 @@ export type LearningGoal4RawResultType = {
     "firstHalf": Map<string, number>,
     "secondHalf": Map<string, number>
 }
-export type LearningGoal4ResultType = {
+type LearningGoal4ResultType = {
     "total": Array<number>,
     "firstHalf": Array<number>,
     "secondHalf": Array<number>
@@ -99,11 +108,30 @@ export enum TableHeaderType {
     STRING = "string"
 }
 
-// Generic Table Header Interface
+// Table Generic Types
 export interface TableHeaderGenericItem {
     "id"?: number,
     "label": string,
     "type": TableHeaderType
+}
+export interface TableHeaderLearningGoal_Generic_Item extends TableHeaderGenericItem {
+    "key": keyof TableDataLearningGoal_Generic["points"][0]
+}
+type GenericRowItem = {
+    "week": number,
+    "value": number,
+    "delta": number
+}
+export type TableDataLearningGoal_Generic = {
+    "points": Array<GenericRowItem>,
+    "tableHeaders": Array<TableHeaderLearningGoal_Generic_Item>
+}
+export type LearningGoal_Generic_Datasets = {
+    "goalData_2_1": any,
+    "goalData_2_2": any,
+    "goalData_2_3": any,
+    "goalData_3_1": any,
+    "goalData_3_2": any
 }
 
 // Table All Data
@@ -115,22 +143,11 @@ export interface TableHeaderAllItem extends TableHeaderGenericItem {
     "value": keyof LearningGoalEntry
 }
 
-// Table - Learning Goal 2
-export interface TableHeaderLearningGoal_2_Item extends TableHeaderGenericItem {
-    "key": keyof TableDataLearningGoal_2["points"][0]
-}
-export type TableDataLearningGoal_2 = {
-    "points": Array<{
-        "week": number,
-        "value": number,
-        "delta": number
-    }>,
-    "tableHeaders": Array<TableHeaderLearningGoal_2_Item>
-}
-export type LearningGoal_2_Datasets = {
-    "goalData_2_1": any,
-    "goalData_2_2": any,
-    "goalData_2_3": any
+// Table - Learning Goal 3
+export type TableDataLearningGoal_3_Item = {
+    "tableHeaders": Array<TableHeaderLearningGoal_Generic_Item>,
+    "setA": Array<GenericRowItem>,
+    "setB": Array<GenericRowItem>,
 }
 
 // Table - Learning Goal 4

@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import type { RouteLocation } from "vue-router";
 import "~/assets/css/base.css";
-import type { ChartData, LearningGoal_2_Datasets, LearningGoal_4_Datasets } from "./assets/customTypes";
+import type { ChartData, LearningGoal_Generic_Datasets, LearningGoal_4_Datasets } from "./assets/customTypes";
 
 // Reactive Data
 const goalData_2_1: Ref<null | ChartData> = ref(null);
 const goalData_2_2: Ref<null | ChartData> = ref(null);
 const goalData_2_3: Ref<null | ChartData> = ref(null);
-const goalData_4_1: Ref<null | Array<ChartData>> = ref([]);
-const goalData_4_2: Ref<null | Array<ChartData>> = ref([]);
+const goalData_3_1: Ref<null | ChartData> = ref(null);
+const goalData_3_2: Ref<null | ChartData> = ref(null);
+const goalData_4_1: Ref<Array<ChartData>> = ref([]);
+const goalData_4_2: Ref<Array<ChartData>> = ref([]);
 
 // Life Cycle
 onMounted(async () => {
@@ -16,9 +18,11 @@ onMounted(async () => {
         setDocumentTitle(useRoute().path);
     }, 100);
 
-    const response2: LearningGoal_2_Datasets | number = await useFetchGoal2(false);
+    const response2: LearningGoal_Generic_Datasets | number = await useFetchGoal2(false);
+    const response3: LearningGoal_Generic_Datasets | number = await useFetchGoal3(false);
     const response4: LearningGoal_4_Datasets | number = await useFetchGoal4(false);
     if (typeof response2 === "number") window.alert(`Data ophalen voor leerdoel 2 ging mis. Probeer later opnieuw. Status code: ${response2}`);
+    if (typeof response3 === "number") window.alert(`Data ophalen voor leerdoel 3 ging mis. Probeer later opnieuw. Status code: ${response3}`);
     if (typeof response4 === "number") window.alert(`Data ophalen voor leerdoel 4 ging mis. Probeer later opnieuw. Status code: ${response4}`);
     loadData(useDataStorage().$state);
 });
@@ -41,6 +45,8 @@ function loadData(source: any): void {
     goalData_2_1.value = JSON.parse(source.goalData_2_1);
     goalData_2_2.value = JSON.parse(source.goalData_2_2);
     goalData_2_3.value = JSON.parse(source.goalData_2_3);
+    goalData_3_1.value = JSON.parse(source.goalData_3_1);
+    goalData_3_2.value = JSON.parse(source.goalData_3_2);
     goalData_4_1.value = source.goalData_4_1;
     goalData_4_2.value = source.goalData_4_2;
 }
@@ -63,7 +69,8 @@ function setDocumentTitle(title: string): void {
             <Navbar />
             <main>
                 <NuxtPage :goalData_2_1="goalData_2_1" :goalData_2_2="goalData_2_2" :goalData_2_3="goalData_2_3"
-                    :goalData_4_1="goalData_4_1" :goalData_4_2="goalData_4_2" />
+                    :goalData_3_1="goalData_3_1" :goalData_3_2="goalData_3_2" :goalData_4_1="goalData_4_1"
+                    :goalData_4_2="goalData_4_2" />
             </main>
         </div>
         <Footer />

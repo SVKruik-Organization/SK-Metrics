@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LearningGoal_2_Datasets, LearningGoal_4_Datasets } from '~/assets/customTypes';
+import type { LearningGoal_Generic_Datasets, LearningGoal_4_Datasets } from '~/assets/customTypes';
 
 // Reactive Data
 const refreshing: Ref<boolean> = ref(false);
@@ -18,9 +18,11 @@ watch(useRoute(), () => {
 async function handleRefresh(): Promise<void> {
     if (refreshing.value) return;
     refreshing.value = true;
-    const response2: LearningGoal_2_Datasets | number = await useFetchGoal2(true);
+    const response2: LearningGoal_Generic_Datasets | number = await useFetchGoal2(true);
+    const response3: LearningGoal_Generic_Datasets | number = await useFetchGoal3(true);
     const response4: LearningGoal_4_Datasets | number = await useFetchGoal4(true);
     if (typeof response2 === "number") window.alert(`Data ophalen voor leerdoel 2 ging mis. Probeer later opnieuw. Status code: ${response2}`);
+    if (typeof response3 === "number") window.alert(`Data ophalen voor leerdoel 3 ging mis. Probeer later opnieuw. Status code: ${response3}`);
     if (typeof response4 === "number") window.alert(`Data ophalen voor leerdoel 4 ging mis. Probeer later opnieuw. Status code: ${response4}`);
     refreshing.value = false;
 }
@@ -37,12 +39,12 @@ function toggleNavbar() {
     <header>
         <span class="overlay" :class="{ 'overlay-open': navBarOpen }" @click="toggleNavbar"></span>
         <nav class="flex compact-nav">
-            <div class="flex">
+            <NuxtLink to="/" class="flex">
                 <ClientOnly>
                     <img src="/Logo.png" alt="Logo" />
                 </ClientOnly>
                 <h2 class="title">SK Metrics</h2>
-            </div>
+            </NuxtLink>
             <button type="button" class="nav-button" @click="toggleNavbar" :class="{ 'nav-button-open': !navBarOpen }">
                 <i class="fa-regular fa-bars"></i>
             </button>
@@ -175,6 +177,10 @@ img {
         width: 100%;
         box-sizing: border-box;
         padding: 10px 20px;
+    }
+
+    .compact-nav a {
+        text-decoration: none;
     }
 
     .nav-link {

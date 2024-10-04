@@ -7,6 +7,8 @@ defineProps({
     "goalData_2_1": { type: [Object, null] as PropType<ChartData | null>, required: true },
     "goalData_2_2": { type: [Object, null] as PropType<ChartData | null>, required: true },
     "goalData_2_3": { type: [Object, null] as PropType<ChartData | null>, required: true },
+    "goalData_3_1": { type: [Object, null] as PropType<ChartData | null>, required: true },
+    "goalData_3_2": { type: [Object, null] as PropType<ChartData | null>, required: true },
     "goalData_4_1": { type: Array as PropType<Array<ChartData>>, required: true },
     "goalData_4_2": { type: Array as PropType<Array<ChartData>>, required: true }
 });
@@ -113,13 +115,13 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         <article class="flex-col">
             <p>
                 De laatste grafiek van dit leerdoel laat zien hoeveel vragen ik gesteld heb per taak per week. Hoewel
-                dit niet gelijk een indicator is van hoe goed ik de taak begreep, kan je het wel vergelijken met de
+                dit niet gelijk een indicator is van hoe goed ik de taak begreep, is het wel te vergelijken met de
                 andere grafieken. Als deze omhoog gaat, dan zouden de andere omlaag moeten gaan.
             </p>
         </article>
         <ClientOnly>
             <ChartLine class="chart" label="Hoeveelheid vragen gesteld gemiddeld per taak per week." v-if="goalData_2_3"
-                :data="goalData_2_3" :options="getOptions('Vragen gesteld per taak gemiddeld per week', 0, 3)">
+                :data="goalData_2_3" :options="getOptions('Vragen gesteld per taak gemiddeld per week', 0, 2)">
             </ChartLine>
             <small class="graph-note">Hoger of lager is neutraal.</small>
         </ClientOnly>
@@ -127,9 +129,57 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         <h2>Leerdoel 3: Organisatorische Context</h2>
         <article class="flex-col">
             <p>
-                Het documenteren van dit leerdoel is WIP.
+                Dan door naar het derde leerdoel. Dit leerdoel is bedoeld om te leren hoe ik mijn werkzaamheden beter
+                binnen de lijnen uit te voeren, en het toevoegen van extra's goed te communiceren, documenteren en
+                testen. Het leerdoel ontstond toen ik de hoofdfunctionaliteit van de ticket per ongeluk brak doordat
+                mijn extra functionaliteit geen rekening hield met een ongeteste edge case. Dit is natuurlijk niet de
+                bedoeling, en daarom is dit leerdoel ontstaan. Ik ben gewend om zelf te bouwen wat ik wil, waar de
+                consequenties aanzienlijk lager zijn dan dat bij mijn stagebedrijf.
+            </p>
+            <p>
+                Ik raak snel enthousiast en naarmate ik kundiger word sneller geneigd om extra functionaliteit toe te
+                voegen die opzich leuk gevonden zijn, maar dan ook wel goed getest moeten worden. Dit is een valkuil die
+                ik moet vermijden.
+            </p>
+            <span class="splitter splitter-light"></span>
+            <p>
+                De eerste grafiek laat twee datasets zien. De eerste dataset gaat concreet over hoeveel extra
+                functionaliteiten ik gemiddeld die week toegevoegd heb. De tweede dataset laat zien hoeveel incidenten
+                er gemiddeld die week waren. Incidenten zijn problemen die ontstaan zijn in mijn gebouwde algemene
+                functionaliteit. Het is dus niet direct aan elkaar verbonden, maar als de lijnen elkaar volgen laat het
+                toch zien dat er een verband is. Het aantal extra's mag gerust erg hoog zijn, zo lang de incidenten maar
+                laag blijven.
             </p>
         </article>
+        <ClientOnly>
+            <ChartLine class="chart" label="Hoeveelheid incidenten en extra functies per taak gemiddeld per week."
+                v-if="goalData_3_1" :data="goalData_3_1"
+                :options="getOptions('Aantal incidenten en extra functies per taak gemiddeld per week', -0.2, 0.5)">
+            </ChartLine>
+        </ClientOnly>
+        <small class="graph-note">Meer extra's is neutraal. Minder incidenten is beter.</small>
+        <span class="splitter splitter-light"></span>
+        <article class="flex-col">
+            <p>
+                Deze grafiek is niet direct verbonden aan het leerdoel, maar laat ik zien om meer context aan
+                incidenten te geven. Complexere taken (die daarmee hoger begroot zijn) hebben in mijn geval vaker
+                incidenten. Dit is logisch, omdat er meer functionaliteit is die kapot kan gaan. In verband met de
+                andere schaal en het niet willen verstoren van de andere grafiek, heb ik deze apart gezet. Als het
+                aantal incidenten telkens een piek heeft wanneer deze grafiek ook een piek heeft, dan kan ervan uit
+                gegaan worden dat dat met elkaar te maken heeft. Zo ligt het niet gelijk aan de extra functionaliteiten.
+            </p>
+            <p>
+                Ik laat ook zien hoeveel tijd ik gemiddeld per taak besteed heb. Deze twee lijnen zouden ongeveer aan
+                elkaar gelijk moeten zijn. Hier gaat leerdoel 2 meer over, dit is zoals eerder genoemd voor meer
+                context.
+            </p>
+        </article>
+        <ClientOnly>
+            <ChartLine class="chart" label="Geplande tijd per taak gemiddeld per week in uren." v-if="goalData_3_2"
+                :data="goalData_3_2" :options="getOptions('Geplande tijd per taak gemiddeld per week in uren', 0, 10)">
+            </ChartLine>
+        </ClientOnly>
+        <small class="graph-note">Hoger of lager is neutraal.</small>
         <span class="splitter"></span>
         <h2>Leerdoel 4: Persoonlijke Ontwikkeling</h2>
         <article class="flex-col">
@@ -151,7 +201,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
             <p>
                 Per grafiek heb ik drie datasets: de eerste neemt de data van de gehele stageperiode, de tweede van
                 enkel de eerste helft, en de derde van alleen de tweede helft. Door de totale dataset uit te schakelen
-                (klik op het corresponderende label boven de grafiek) kan je het verschil zien tussen de eerste en
+                (klik op het corresponderende label boven de grafiek) is het verschil te zien tussen de eerste en
                 tweede helft. Als de tweede helft nog leeg is, bent u te vroeg!
             </p>
         </article>

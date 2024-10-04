@@ -1,7 +1,7 @@
 import { LearningGoal4Result, LearningGoal4RawResult, LearningGoal4RawResultType } from "~/assets/customTypes";
 import mariadb, { Pool, PoolConfig } from 'mariadb';
 
-export default defineEventHandler(async (): Promise<LearningGoal4Result | 500> => {
+export default defineEventHandler(async (): Promise<LearningGoal4Result | number> => {
     try {
         const runtimeConfig = useRuntimeConfig();
         const connection: Pool = mariadb.createPool(runtimeConfig.database as any as PoolConfig);

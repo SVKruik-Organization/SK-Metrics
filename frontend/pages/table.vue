@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { TableHeaderType, type ChartData, type LearningGoal_2_Datasets, type LearningGoalEntry, type TableAllData, type TableDataLearningGoal_2, type TableDataLearningGoal_4_Item } from '~/assets/customTypes';
+import { TableHeaderType, type ChartData, type LearningGoal_Generic_Datasets, type LearningGoalEntry, type TableAllData, type TableDataLearningGoal_Generic, type TableDataLearningGoal_4_Item, type TableDataLearningGoal_3_Item } from '~/assets/customTypes';
 import { table_2_Parser, table_4_Parser } from '~/utils/data';
 import { formatISODate } from '~/utils/date';
 
 // Reactive Data
 const tableAllData: Ref<TableAllData> = ref({ tableHeaders: [], points: [] });
-const tableGoalData_2_1: Ref<TableDataLearningGoal_2 | null> = ref(null);
-const tableGoalData_2_2: Ref<TableDataLearningGoal_2 | null> = ref(null);
-const tableGoalData_2_3: Ref<TableDataLearningGoal_2 | null> = ref(null);
+const tableGoalData_2_1: Ref<TableDataLearningGoal_Generic | null> = ref(null);
+const tableGoalData_2_2: Ref<TableDataLearningGoal_Generic | null> = ref(null);
+const tableGoalData_2_3: Ref<TableDataLearningGoal_Generic | null> = ref(null);
+const tableGoalData_3_1: Ref<TableDataLearningGoal_3_Item | null> = ref(null);
+const tableGoalData_3_2: Ref<TableDataLearningGoal_3_Item | null> = ref(null);
 const tableGoalData_4: Ref<Array<TableDataLearningGoal_4_Item> | null> = ref(null);
-const tableGoalDataRefs: Record<string, Ref<TableDataLearningGoal_2 | Array<TableDataLearningGoal_4_Item> | null>> = {
+const tableGoalDataRefs: Record<string, Ref<TableDataLearningGoal_Generic | TableDataLearningGoal_3_Item | Array<TableDataLearningGoal_4_Item> | null>> = {
     "goalData_2_1": tableGoalData_2_1,
     "goalData_2_2": tableGoalData_2_2,
     "goalData_2_3": tableGoalData_2_3,
+    "goalData_3_1": tableGoalData_3_1,
+    "goalData_3_2": tableGoalData_3_2,
     "goalData_4": tableGoalData_4
 };
 
@@ -21,9 +25,13 @@ const props = defineProps({
     "goalData_2_1": { type: [Object, null] as PropType<ChartData | null>, required: true },
     "goalData_2_2": { type: [Object, null] as PropType<ChartData | null>, required: true },
     "goalData_2_3": { type: [Object, null] as PropType<ChartData | null>, required: true },
+    "goalData_3_1": { type: [Object, null] as PropType<ChartData | null>, required: true },
+    "goalData_3_2": { type: [Object, null] as PropType<ChartData | null>, required: true },
     "goalData_4_1": { type: Array as PropType<Array<ChartData>>, required: true },
     "goalData_4_2": { type: Array as PropType<Array<ChartData>>, required: true },
 });
+
+
 
 // Data Fetch
 onMounted(async () => {
@@ -31,6 +39,8 @@ onMounted(async () => {
     tableGoalData_2_1.value = table_2_Parser(props.goalData_2_1 as ChartData, TableHeaderType.PERCENTAGE);
     tableGoalData_2_2.value = table_2_Parser(props.goalData_2_2 as ChartData, TableHeaderType.NUMBER);
     tableGoalData_2_3.value = table_2_Parser(props.goalData_2_3 as ChartData, TableHeaderType.NUMBER);
+    tableGoalData_3_1.value = table_3_Parser(props.goalData_3_1 as ChartData);
+    tableGoalData_3_2.value = table_3_Parser(props.goalData_3_2 as ChartData);
     tableGoalData_4.value = table_4_Parser(props.goalData_4_1.concat(props.goalData_4_2) as Array<ChartData>, TableHeaderType.NUMBER);
 });
 
@@ -79,8 +89,8 @@ function sortTableAll(event: MouseEvent, column: keyof LearningGoalEntry, type?:
  * @param column The column to sort on.
  * @param data The dataset to use for sorting.
  */
-function sortTableGenericSingle(event: MouseEvent, column: keyof TableDataLearningGoal_2["points"][0], data: keyof LearningGoal_2_Datasets) {
-    const datasets = tableGoalDataRefs[data].value as TableDataLearningGoal_2;
+function sortTableGenericSingle(event: MouseEvent, column: keyof TableDataLearningGoal_Generic["points"][0], data: keyof LearningGoal_Generic_Datasets) {
+    const datasets = tableGoalDataRefs[data].value as TableDataLearningGoal_Generic;
     if (!datasets) return;
 
     const eventTarget: HTMLTableCellElement = event.target as HTMLTableCellElement;
@@ -114,36 +124,28 @@ function sortTableGenericMultiple(event: MouseEvent, column: any, data: any): vo
  * @param value The value of the to be placed cell.
  * @param invert Invert the colors of the trend arrows.
  */
-function tableGoalData_2_viewer(key: keyof TableDataLearningGoal_2["points"][0], value: string | number, invert: boolean): number | string {
+function tableGoalData_Generic_Viewer(key: keyof TableDataLearningGoal_Generic["points"][0], value: string | number, invert: boolean, type: TableHeaderType, previousValue: number | undefined): number | string {
     const trendValues = getTrendColors(invert);
 
-    switch (key) {
-        case 'delta':
-            return `
-            <div class="flex ${(value as number) === 0 ? 'hidden' : ''}">
-                <p class="text-color-${(value as number) > 0 ? trendValues.colorBad : trendValues.colorGood}">${value}</p>
-                <i class="fa-regular 
+    if (key === "delta") {
+        return `
+            <div class="flex ${!previousValue ? 'hidden' : ''}">
+                <p class="${value === 0 ? 'hidden' : ''}
+                    text-color-${(value as number) > 0 ? trendValues.colorBad : trendValues.colorGood}">${value}</p>
+
+                <p class="${value === 0 ? '' : 'hidden'}
+                    text-color-blue">${value}</p>
+
+                <i class="fa-regular
+                    ${value === 0 ? 'hidden' : ''}
                     fa-arrow-trend-${(value as number) > 0 ? 'up' : 'down'}
                     text-color-${(value as number) > 0 ? trendValues.colorBad : trendValues.colorGood}"></i>
+                <i class="fa-regular fa-arrow-right-long text-color-blue
+                    ${value === 0 ? '' : 'hidden'}"></i>
             </div>`;
-        case 'value':
-            return `${value}%`;
-        default:
-            return value;
-    }
-}
-
-/**
- * Render special cells for the goal data tables.
- * @param key The key of the row.
- * @param value The value of the to be placed cell.
- * @param invert Invert the colors of the trend arrows.
- */
-function tableGoalData_4_viewer(key: any, value: string | number, invert: boolean): void {
-    const trendValues = getTrendColors(invert);
-
-    // TODO: Implement highly advanced and sophisticated sorting algorithm here.
-    // switch (key) {
+    } else if (type === "percentage") {
+        return `${value}%`;
+    } else return value;
 }
 
 /**
@@ -185,6 +187,11 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 te breed voor de pagina, dus deze zijn horizontaal scrollbaar. Gebruik de scrollbar onder de tabel of
                 houd de Shift toets ingedrukt en scroll met de muis/trackpad.
             </p>
+            <p>
+                De kolom 'Verschil' laat het verschil zien
+                tussen deze en vorige week. Per tabel kan een positief getal goed of juist slecht zijn (en andersom),
+                dus ik heb dit met kleuren aangegeven.
+            </p>
         </article>
         <span class="splitter"></span>
         <h3>Kolommen Uitleg</h3>
@@ -209,9 +216,9 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
         <h2>Alle Meetpunten</h2>
         <article class="flex-col">
             <p>
-                Voordat ik de datasets verwerkt laat zien, bij deze de ruwe data die ik in de database heb opgeslagen.
-                Het is gesorteerd op oplopend week nummer. Ik heb verder geen andere tabellen, dus uit deze data worden
-                alle grafieken en berekeningen gemaakt. Ik heb zelf nog het tijds-percentage toegevoegd.
+                Voordat ik de datasets verwerkt laat zien, hierbij eerst de ruwe data die ik in de database heb
+                opgeslagen. Het is gesorteerd op oplopend week nummer. Ik heb verder geen andere tabellen, dus uit deze
+                data worden alle grafieken en berekeningen gemaakt. Ik heb zelf nog het tijds-percentage toegevoegd.
             </p>
         </article>
         <span class="splitter splitter-light"></span>
@@ -234,15 +241,6 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
         </div>
         <span class="splitter"></span>
         <h2>Leerdoel 2: Samenwerken</h2>
-        <article class="flex-col">
-            <p>
-                Hieronder zijn de tabellen te vinden die op de <NuxtLink to="/graph">Grafieken</NuxtLink> pagina in
-                lijn grafiek-vorm te vinden zijn. De kolom 'Verschil' laat het verschil zien tussen deze en vorige week.
-                Per tabel kan een positief getal goed of juist slecht zijn (en andersom), dus ik heb dit met kleuren
-                aangegeven.
-            </p>
-        </article>
-        <span class="splitter splitter-light"></span>
         <div class="table-container-multiple">
             <div class="flex-col table-container">
                 <strong>Besteedde Tijd</strong>
@@ -256,9 +254,10 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="tableGoalData_2_1" v-for="(point, index) in tableGoalData_2_1.points" :key="index">
-                            <td v-for="(value, key) in point" :key="key"
-                                v-html="tableGoalData_2_viewer(key, value, false)">
+                        <tr v-if="tableGoalData_2_1" v-for="(point, superIndex) in tableGoalData_2_1.points"
+                            :key="superIndex">
+                            <td v-for="(value, key, index) in point" :key="key"
+                                v-html="tableGoalData_Generic_Viewer(key, value, false, tableGoalData_2_1.tableHeaders[index].type, Object.values(tableGoalData_2_1.points)[superIndex - 1]?.value)">
                             </td>
                         </tr>
                     </tbody>
@@ -277,9 +276,10 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="tableGoalData_2_2" v-for="(point, index) in tableGoalData_2_2.points" :key="index">
-                            <td v-for="(value, key) in point" :key="key"
-                                v-html="tableGoalData_2_viewer(key, value, false)">
+                        <tr v-if="tableGoalData_2_2" v-for="(point, superIndex) in tableGoalData_2_2.points"
+                            :key="superIndex">
+                            <td v-for="(value, key, index) in point" :key="key"
+                                v-html="tableGoalData_Generic_Viewer(key, value, false, tableGoalData_2_2.tableHeaders[index].type, Object.values(tableGoalData_2_2.points)[superIndex - 1]?.value)">
                             </td>
                         </tr>
                     </tbody>
@@ -298,9 +298,10 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="tableGoalData_2_3" v-for="(point, index) in tableGoalData_2_3.points" :key="index">
-                            <td v-for="(value, key) in point" :key="key"
-                                v-html="tableGoalData_2_viewer(key, value, true)">
+                        <tr v-if="tableGoalData_2_3" v-for="(point, superIndex) in tableGoalData_2_3.points"
+                            :key="superIndex">
+                            <td v-for="(value, key, index) in point" :key="key"
+                                v-html="tableGoalData_Generic_Viewer(key, value, true, tableGoalData_2_3.tableHeaders[index].type, Object.values(tableGoalData_2_3.points)[superIndex - 1]?.value)">
                             </td>
                         </tr>
                     </tbody>
@@ -310,20 +311,105 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
         </div>
         <span class="splitter"></span>
         <h2>Leerdoel 3: Organisatorische Context</h2>
-        <article class="flex-col">
-            <p>
-                Het documenteren van dit leerdoel is WIP.
-            </p>
-        </article>
+        <div class="table-container-duo">
+            <div class="flex-col table-container">
+                <strong>Extra's</strong>
+                <table class="table-1">
+                    <thead>
+                        <tr>
+                            <th data-sort-order="asc" v-if="tableGoalData_3_1"
+                                v-for="(header, index) in tableGoalData_3_1.tableHeaders" :key="index"
+                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_1')">{{ header.label }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="tableGoalData_3_1" v-for="(point, superIndex) in tableGoalData_3_1.setA"
+                            :key="superIndex">
+                            <td v-for="(value, key, index) in point" :key="key"
+                                v-html="tableGoalData_Generic_Viewer(key, value, true, tableGoalData_3_1.tableHeaders[index].type, Object.values(tableGoalData_3_1.setA)[superIndex - 1]?.value)">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <small>Hogere of lagere Waarde is neutraal.</small>
+            </div>
+            <div class="flex-col table-container">
+                <strong>Incidenten</strong>
+                <table class="table-2">
+                    <thead>
+                        <tr>
+                            <th data-sort-order="asc" v-if="tableGoalData_3_1"
+                                v-for="(header, index) in tableGoalData_3_1.tableHeaders" :key="index"
+                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_1')">{{ header.label }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="tableGoalData_3_1" v-for="(point, superIndex) in tableGoalData_3_1.setB"
+                            :key="superIndex">
+                            <td v-for="(value, key, index) in point" :key="key"
+                                v-html="tableGoalData_Generic_Viewer(key, value, false, tableGoalData_3_1.tableHeaders[index].type, Object.values(tableGoalData_3_1.setB)[superIndex - 1]?.value)">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <small>Lagere Waarde is beter.</small>
+            </div>
+            <div class="flex-col table-container">
+                <strong>Tijd Geplanned</strong>
+                <table class="table-3">
+                    <thead>
+                        <tr>
+                            <th data-sort-order="asc" v-if="tableGoalData_3_2"
+                                v-for="(header, index) in tableGoalData_3_2.tableHeaders" :key="index"
+                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_2')">{{ header.label }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="tableGoalData_3_2" v-for="(point, superIndex) in tableGoalData_3_2.setA"
+                            :key="superIndex">
+                            <td v-for="(value, key, index) in point" :key="key"
+                                v-html="tableGoalData_Generic_Viewer(key, value, true, tableGoalData_3_2.tableHeaders[index].type, Object.values(tableGoalData_3_2.setB)[superIndex - 1]?.value)">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <small>Hogere of lagere Waarde is neutraal.</small>
+            </div>
+            <div class="flex-col table-container">
+                <strong>Tijd Besteed</strong>
+                <table class="table-4">
+                    <thead>
+                        <tr>
+                            <th data-sort-order="asc" v-if="tableGoalData_3_2"
+                                v-for="(header, index) in tableGoalData_3_2.tableHeaders" :key="index"
+                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_2')">{{ header.label }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="tableGoalData_3_2" v-for="(point, superIndex) in tableGoalData_3_2.setB"
+                            :key="superIndex">
+                            <td v-for="(value, key, index) in point" :key="key"
+                                v-html="tableGoalData_Generic_Viewer(key, value, true, tableGoalData_3_2.tableHeaders[index].type, Object.values(tableGoalData_3_2.setB)[superIndex - 1]?.value)">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <small>Hogere of lagere Waarde is neutraal.</small>
+            </div>
+        </div>
         <span class="splitter"></span>
         <h2>Leerdoel 4: Persoonlijke Ontwikkeling</h2>
         <article class="flex-col">
             <p>
-                Hieronder zijn de tabellen te vinden die op de <NuxtLink to="/graph">Grafieken</NuxtLink> pagina in
-                radar grafiek-vorm te vinden zijn. In aantal betekent hoe vaak een categorie/taal bij een ticket
+                Hieronder zijn de tabellen te vinden die op de <NuxtLink to="/graph">Grafieken</NuxtLink> pagina
+                in radar grafiek-vorm te vinden zijn. In aantal betekent hoe vaak een categorie/taal bij een ticket
                 betrokken was. In tijd betekent hoeveel tijd ik aan een categorie/taal heb besteed (doordat deze
-                betrokken was bij een ticket). Net als bij de radar grafieken zijn de waardes ook opgesplitst in stage
-                periodes. Als de tweede helft nog leeg is, bent u te vroeg!
+                betrokken was bij een ticket). Net als bij de radar grafieken zijn de waardes ook opgesplitst in
+                stage periodes. Als de tweede helft nog leeg is, bent u te vroeg!
             </p>
         </article>
         <span class="splitter splitter-light"></span>
@@ -355,9 +441,16 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
     gap: 20px;
 }
 
+.table-container-duo table,
 .table-container-multiple table,
 .table-container-multiple .table-container {
     width: 100%;
+}
+
+.table-container-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .table-container-full-width table {
@@ -420,6 +513,10 @@ td {
         flex-direction: column;
         width: 100%;
     }
+
+    .table-container-duo {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (width <=570px) {
@@ -427,11 +524,13 @@ td {
         text-align: center;
     }
 
+    .table-container-duo,
     .table-container-full-width,
     .table-container {
         width: 100%;
         align-self: flex-start;
     }
+
 
     .table-container-full-width table {
         width: 700px;
