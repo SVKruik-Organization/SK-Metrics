@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { LearningGoal_2_Datasets, LearningGoal_4_Datasets } from '~/assets/customTypes';
+
 // Reactive Data
 const refreshing: Ref<boolean> = ref(false);
 const navBarOpen: Ref<boolean> = ref(false);
@@ -16,8 +18,10 @@ watch(useRoute(), () => {
 async function handleRefresh(): Promise<void> {
     if (refreshing.value) return;
     refreshing.value = true;
-    await useFetchGoal2(true);
-    await useFetchGoal4(true);
+    const response2: LearningGoal_2_Datasets | number = await useFetchGoal2(true);
+    const response4: LearningGoal_4_Datasets | number = await useFetchGoal4(true);
+    if (typeof response2 === "number") window.alert(`Data ophalen voor leerdoel 2 ging mis. Probeer later opnieuw. Status code: ${response2}`);
+    if (typeof response4 === "number") window.alert(`Data ophalen voor leerdoel 4 ging mis. Probeer later opnieuw. Status code: ${response4}`);
     refreshing.value = false;
 }
 

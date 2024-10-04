@@ -7,7 +7,8 @@
                 die beschreven staan in mijn SOP houd ik gedurende mijn stage verschillende data bij. Deze data zal ik
                 verwerken en analyseren om zo mijn progressie te meten en bewijzen. Daarnaast stel ik het tentoon in
                 grafieken en tabellen die te vinden zijn op de <NuxtLink to="/graph">Grafieken</NuxtLink> en <NuxtLink
-                    to="/table">Tabellen</NuxtLink> pagina's.
+                    to="/table">Tabellen</NuxtLink> pagina's. Deze website werkt uiteraard ook uitstekend op mobiele
+                apparaten.
             </p>
             <span class="splitter splitter-light"></span>
             <p>
@@ -17,6 +18,12 @@
                 Portfolio en SOP verwijs ik vanuit de leerdoelen naar deze website, en deze website geldt dan ook alleen
                 voor die leerdoelen.
             </p>
+            <span class="splitter splitter-light"></span>
+            <p>
+                De leerdoelen die ik op SK Metrics behandel zijn: <strong>2</strong>, <strong>3</strong> en
+                <strong>4</strong>.
+            </p>
+            <span class="splitter splitter-light"></span>
             <p>
                 Daarnaast werk ik de leerdoelen zelf hier ook niet uit. Raadpleeg mijn Portfolio en SOP voor de
                 volledige leerdoelen. Hier zijn enkel de resultaten te vinden voor de <strong>M</strong> in SMART ter

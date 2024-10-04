@@ -5,7 +5,7 @@ import { getDate } from "~/utils/date";
 export default defineEventHandler(async (): Promise<TableAllData> => {
     const runtimeConfig = useRuntimeConfig();
     const connection: Pool = mariadb.createPool(runtimeConfig.database as any as PoolConfig);
-    const rawData: Array<LearningGoalEntryRaw> = await connection.query("SELECT *, ROUND((time_taken/time_planned) * 100) as time_taken_percentage FROM learning_goal_2 ORDER BY WEEK ASC;");
+    const rawData: Array<LearningGoalEntryRaw> = await connection.query("SELECT *, ROUND((time_taken/time_planned) * 100) as time_taken_percentage FROM learning_goal_data ORDER BY WEEK ASC;");
     connection.end();
 
     // Data Processing

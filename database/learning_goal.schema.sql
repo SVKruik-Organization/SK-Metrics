@@ -1,4 +1,4 @@
-CREATE TABLE `learning_goal` (
+CREATE TABLE `learning_goal_data` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `week` tinyint(2) unsigned NOT NULL,
   `ticket` smallint(4) unsigned NOT NULL,
@@ -6,8 +6,10 @@ CREATE TABLE `learning_goal` (
   `time_taken` smallint(4) unsigned NOT NULL DEFAULT 0,
   `help_needed` tinyint(1) unsigned NOT NULL DEFAULT 0,
   `qa_iterations` tinyint(1) unsigned DEFAULT NULL,
-  `category` varchar(45) NOT NULL,
-  `language` varchar(45) NOT NULL,
+  `extras` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `incidents` tinyint(1) unsigned NOT NULL DEFAULT 0,
+  `category` varchar(100) NOT NULL,
+  `language` varchar(100) NOT NULL,
   `date_creation` datetime NOT NULL DEFAULT current_timestamp(),
   `date_updated` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),

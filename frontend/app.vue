@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { RouteLocation } from "vue-router";
 import "~/assets/css/base.css";
-import type { ChartData } from "./assets/customTypes";
+import type { ChartData, LearningGoal_2_Datasets, LearningGoal_4_Datasets } from "./assets/customTypes";
 
 // Reactive Data
 const goalData_2_1: Ref<null | ChartData> = ref(null);
@@ -16,8 +16,10 @@ onMounted(async () => {
         setDocumentTitle(useRoute().path);
     }, 100);
 
-    await useFetchGoal2(false);
-    await useFetchGoal4(false);
+    const response2: LearningGoal_2_Datasets | number = await useFetchGoal2(false);
+    const response4: LearningGoal_4_Datasets | number = await useFetchGoal4(false);
+    if (typeof response2 === "number") window.alert(`Data ophalen voor leerdoel 2 ging mis. Probeer later opnieuw. Status code: ${response2}`);
+    if (typeof response4 === "number") window.alert(`Data ophalen voor leerdoel 4 ging mis. Probeer later opnieuw. Status code: ${response4}`);
     loadData(useDataStorage().$state);
 });
 

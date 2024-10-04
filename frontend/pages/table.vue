@@ -234,7 +234,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
         </div>
         <span class="splitter"></span>
         <h2>Leerdoel 2: Samenwerken</h2>
-        <article>
+        <article class="flex-col">
             <p>
                 Hieronder zijn de tabellen te vinden die op de <NuxtLink to="/graph">Grafieken</NuxtLink> pagina in
                 lijn grafiek-vorm te vinden zijn. De kolom 'Verschil' laat het verschil zien tussen deze en vorige week.
@@ -309,8 +309,15 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
             </div>
         </div>
         <span class="splitter"></span>
+        <h2>Leerdoel 3: Organisatorische Context</h2>
+        <article class="flex-col">
+            <p>
+                Het documenteren van dit leerdoel is WIP.
+            </p>
+        </article>
+        <span class="splitter"></span>
         <h2>Leerdoel 4: Persoonlijke Ontwikkeling</h2>
-        <article>
+        <article class="flex-col">
             <p>
                 Hieronder zijn de tabellen te vinden die op de <NuxtLink to="/graph">Grafieken</NuxtLink> pagina in
                 radar grafiek-vorm te vinden zijn. In aantal betekent hoe vaak een categorie/taal bij een ticket
@@ -327,8 +334,8 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 <thead>
                     <tr>
                         <th data-sort-order="asc" v-for="(header, index) in table.tableHeaders" :key="index"
-                            @click="sortTableGenericMultiple($event, header.label, `goalData_4_${superIndex + 1}`)">{{
-                                header.label }}
+                            @click="sortTableGenericMultiple($event, header.label, `goalData_4_${superIndex + 1}`)">
+                            {{ header.label }}
                         </th>
                     </tr>
                 </thead>

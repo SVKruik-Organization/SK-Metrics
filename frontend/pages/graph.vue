@@ -90,7 +90,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         </ClientOnly>
         <small class="graph-note">Lager is beter.</small>
         <span class="splitter splitter-light"></span>
-        <article>
+        <article class="flex-col">
             <p>
                 Hieronder is een grafiek te zien van hoeveel QA iteraties er nodig waren voordat een taak productie in
                 kon. Dit is een indicator van hoe goed ik de taak begreep en hoe goed ik de taak heb uitgevoerd. Maar
@@ -110,7 +110,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         </ClientOnly>
         <small class="graph-note">Lager is beter.</small>
         <span class="splitter splitter-light"></span>
-        <article>
+        <article class="flex-col">
             <p>
                 De laatste grafiek van dit leerdoel laat zien hoeveel vragen ik gesteld heb per taak per week. Hoewel
                 dit niet gelijk een indicator is van hoe goed ik de taak begreep, kan je het wel vergelijken met de
@@ -123,6 +123,13 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
             </ChartLine>
             <small class="graph-note">Hoger of lager is neutraal.</small>
         </ClientOnly>
+        <span class="splitter"></span>
+        <h2>Leerdoel 3: Organisatorische Context</h2>
+        <article class="flex-col">
+            <p>
+                Het documenteren van dit leerdoel is WIP.
+            </p>
+        </article>
         <span class="splitter"></span>
         <h2>Leerdoel 4: Persoonlijke Ontwikkeling</h2>
         <article class="flex-col">
