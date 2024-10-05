@@ -316,22 +316,22 @@ export function table_4_Parser(input: Array<ChartData>, type: TableHeaderType): 
     return [{
         "label": "Werkzaamheden per categorie in aantal",
         "tableHeaders": headerMapper(countLabels_Category, type),
-        "points": pointMapper(countDataset_Category)
+        "points": pointMapper(countDataset_Category, countLabels_Category.length)
     },
     {
         "label": "Werkzaamheden per categorie in uren",
         "tableHeaders": headerMapper(hoursDataset_Category, type),
-        "points": pointMapper(hoursLabels_Category)
+        "points": pointMapper(hoursLabels_Category, hoursDataset_Category.length)
     },
     {
         "label": "Werkzaamheden per taal in aantal",
         "tableHeaders": headerMapper(countLabels_Language, type),
-        "points": pointMapper(countDataset_Language)
+        "points": pointMapper(countDataset_Language, countLabels_Language.length)
     },
     {
         "label": "Werkzaamheden per taal in uren",
         "tableHeaders": headerMapper(hoursLabels_Language, type),
-        "points": pointMapper(hoursDataset_Language)
+        "points": pointMapper(hoursDataset_Language, hoursLabels_Language.length)
     }]
 }
 
@@ -358,8 +358,13 @@ function headerMapper(input: Array<string>, type: TableHeaderType): Array<TableH
 /**
  * Extract the dataset data points from the chart data.
  * @param input The data to parse.
+ * @param maxLength The maximum length of the data points.
  * @returns The data points in the correct format.
  */
-function pointMapper(input: Array<ChartDataset>): Array<any> {
-    return input.map((dataset: ChartDataset) => [dataset.label, ...dataset.data])
-} 
+function pointMapper(input: Array<ChartDataset>, maxLength: number): Array<any> {
+    return input.map((dataset: ChartDataset) => {
+        const dataPoints = [dataset.label, ...dataset.data];
+        const paddedDataPoints = dataPoints.concat(Array(maxLength).fill(0)).slice(0, maxLength + 1);
+        return paddedDataPoints;
+    });
+}

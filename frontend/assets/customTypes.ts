@@ -117,7 +117,7 @@ export interface TableHeaderGenericItem {
 export interface TableHeaderLearningGoal_Generic_Item extends TableHeaderGenericItem {
     "key": keyof TableDataLearningGoal_Generic["points"][0]
 }
-type GenericRowItem = {
+export type GenericRowItem = {
     "week": number,
     "value": number,
     "delta": number

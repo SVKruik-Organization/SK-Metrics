@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TableHeaderType, type ChartData, type LearningGoal_Generic_Datasets, type LearningGoalEntry, type TableAllData, type TableDataLearningGoal_Generic, type TableDataLearningGoal_4_Item, type TableDataLearningGoal_3_Item } from '~/assets/customTypes';
+import { TableHeaderType, type ChartData, type LearningGoal_Generic_Datasets, type LearningGoalEntry, type TableAllData, type TableDataLearningGoal_Generic, type TableDataLearningGoal_4_Item, type TableDataLearningGoal_3_Item, type LearningGoal_4_Datasets, type GenericRowItem, type TableHeaderGenericItem } from '~/assets/customTypes';
 import { table_2_Parser, table_4_Parser } from '~/utils/data';
 import { formatISODate } from '~/utils/date';
 
@@ -30,8 +30,6 @@ const props = defineProps({
     "goalData_4_1": { type: Array as PropType<Array<ChartData>>, required: true },
     "goalData_4_2": { type: Array as PropType<Array<ChartData>>, required: true },
 });
-
-
 
 // Data Fetch
 onMounted(async () => {
@@ -114,8 +112,38 @@ function sortTableGenericSingle(event: MouseEvent, column: keyof TableDataLearni
  * @param column The column to sort on.
  * @param data The dataset to use for sorting.
  */
-function sortTableGenericMultiple(event: MouseEvent, column: any, data: any): void {
-    console.log(event, column, data);
+function sortTableGenericMultiple(event: MouseEvent, column: string, data: keyof LearningGoal_Generic_Datasets | Array<TableHeaderGenericItem>, points: Array<GenericRowItem> | Array<number>): void {
+    if (typeof data === "string" && ["goalData_2_1", "goalData_2_2", "goalData_2_3"].includes(data)) return;
+
+    const eventTarget: HTMLTableCellElement = event.target as HTMLTableCellElement;
+    const sortOrder: string = eventTarget.getAttribute("data-sort-order") as string;
+    const multiplier: number = sortOrder === "asc" ? 1 : -1;
+    eventTarget.setAttribute("data-sort-order", sortOrder === "asc" ? "desc" : "asc");
+
+    if (typeof data === "string") {
+        // 3
+        const processedPoints = points as Array<GenericRowItem>;
+        processedPoints.sort((a, b) => {
+            const columnA: number = a[column as keyof TableDataLearningGoal_3_Item["setA"][0]];
+            const columnB: number = b[column as keyof TableDataLearningGoal_3_Item["setA"][0]];
+
+            if (columnA < columnB) return -1 * multiplier;
+            if (columnA > columnB) return 1 * multiplier;
+            return 0;
+        });
+    } else if (typeof data === "object") {
+        // 4
+        const index = data.findIndex((header) => header.label === column);
+        const processedPoints = points as Array<any>;
+        processedPoints.sort((a, b) => {
+            const columnA: number = a[index];
+            const columnB: number = b[index];
+
+            if (columnA < columnB) return -1 * multiplier;
+            if (columnA > columnB) return 1 * multiplier;
+            return 0;
+        });
+    }
 }
 
 /**
@@ -319,7 +347,9 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         <tr>
                             <th data-sort-order="asc" v-if="tableGoalData_3_1"
                                 v-for="(header, index) in tableGoalData_3_1.tableHeaders" :key="index"
-                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_1')">{{ header.label }}
+                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_1', tableGoalData_3_1.setA)">
+                                {{
+                                    header.label }}
                             </th>
                         </tr>
                     </thead>
@@ -341,7 +371,9 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         <tr>
                             <th data-sort-order="asc" v-if="tableGoalData_3_1"
                                 v-for="(header, index) in tableGoalData_3_1.tableHeaders" :key="index"
-                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_1')">{{ header.label }}
+                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_1', tableGoalData_3_1.setB)">
+                                {{
+                                    header.label }}
                             </th>
                         </tr>
                     </thead>
@@ -363,7 +395,9 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         <tr>
                             <th data-sort-order="asc" v-if="tableGoalData_3_2"
                                 v-for="(header, index) in tableGoalData_3_2.tableHeaders" :key="index"
-                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_2')">{{ header.label }}
+                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_2', tableGoalData_3_2.setA)">
+                                {{
+                                    header.label }}
                             </th>
                         </tr>
                     </thead>
@@ -385,7 +419,9 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         <tr>
                             <th data-sort-order="asc" v-if="tableGoalData_3_2"
                                 v-for="(header, index) in tableGoalData_3_2.tableHeaders" :key="index"
-                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_2')">{{ header.label }}
+                                @click="sortTableGenericMultiple($event, header.key, 'goalData_3_2', tableGoalData_3_2.setB)">
+                                {{
+                                    header.label }}
                             </th>
                         </tr>
                     </thead>
@@ -420,7 +456,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 <thead>
                     <tr>
                         <th data-sort-order="asc" v-for="(header, index) in table.tableHeaders" :key="index"
-                            @click="sortTableGenericMultiple($event, header.label, `goalData_4_${superIndex + 1}`)">
+                            @click="sortTableGenericMultiple($event, header.label, table.tableHeaders, table.points)">
                             {{ header.label }}
                         </th>
                     </tr>
