@@ -18,6 +18,10 @@ export default defineEventHandler(async (): Promise<TableAllData> => {
             timeTakenPercentage: entry.time_taken_percentage,
             helpNeeded: entry.help_needed,
             qaIterations: entry.qa_iterations,
+            incidents: entry.incidents,
+            extras: entry.extras,
+            categories: entry.category,
+            languages: entry.language,
             dateCreation: getDate(entry.date_creation).date,
             dateUpdated: getDate(entry.date_updated).date
         };
@@ -31,8 +35,12 @@ export default defineEventHandler(async (): Promise<TableAllData> => {
         { id: 5, label: "T Nodig %", value: "timeTakenPercentage", type: TableHeaderType.PERCENTAGE },
         { id: 6, label: "Vragen", value: "helpNeeded", type: TableHeaderType.NUMBER },
         { id: 7, label: "QA", value: "qaIterations", type: TableHeaderType.NUMBER },
-        { id: 8, label: "Datum Creatie", value: "dateCreation", type: TableHeaderType.DATE },
-        { id: 9, label: "Datum Update", value: "dateUpdated", type: TableHeaderType.DATE }
+        { id: 8, label: "Incidenten", value: "incidents", type: TableHeaderType.NUMBER },
+        { id: 9, label: "Extra's", value: "extras", type: TableHeaderType.NUMBER },
+        { id: 10, label: "Categorieën", value: "categories", type: TableHeaderType.STRING },
+        { id: 11, label: "Talen", value: "languages", type: TableHeaderType.STRING },
+        { id: 12, label: "Datum Creatie", value: "dateCreation", type: TableHeaderType.DATE },
+        { id: 13, label: "Datum Update", value: "dateUpdated", type: TableHeaderType.DATE }
     ]
 
     return {

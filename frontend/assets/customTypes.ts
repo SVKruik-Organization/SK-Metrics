@@ -7,6 +7,10 @@ export type LearningGoalEntry = {
     "timeTakenPercentage": number,
     "helpNeeded": number,
     "qaIterations": number,
+    "incidents": number,
+    "extras": number,
+    "categories": string,
+    "languages": string,
     "dateCreation": string,
     "dateUpdated": string
 }
@@ -19,6 +23,8 @@ export type LearningGoalEntryRaw = {
     "time_taken_percentage": number,
     "help_needed": number,
     "qa_iterations": number,
+    "incidents": number,
+    "extras": number,
     "category": string,
     "language": string,
     "date_creation": string,

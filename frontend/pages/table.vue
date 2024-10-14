@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TableHeaderType, type ChartData, type LearningGoal_Generic_Datasets, type LearningGoalEntry, type TableAllData, type TableDataLearningGoal_Generic, type TableDataLearningGoal_4_Item, type TableDataLearningGoal_3_Item, type LearningGoal_4_Datasets, type GenericRowItem, type TableHeaderGenericItem } from '~/assets/customTypes';
+import { TableHeaderType, type ChartData, type LearningGoal_Generic_Datasets, type LearningGoalEntry, type TableAllData, type TableDataLearningGoal_Generic, type TableDataLearningGoal_4_Item, type TableDataLearningGoal_3_Item, type GenericRowItem, type TableHeaderGenericItem } from '~/assets/customTypes';
 import { table_2_Parser, table_4_Parser } from '~/utils/data';
 import { formatISODate } from '~/utils/date';
 
@@ -222,24 +222,79 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
             </p>
         </article>
         <span class="splitter"></span>
-        <h3>Kolommen Uitleg</h3>
         <article class="flex-col">
-            <p class="flex-col">
-                <strong>Week Nr:</strong> Het weeknummer waarin de ticket is aangemaakt.
-                <strong>Ticket Nr:</strong> Het interne ticketnummer van het meetpunt.
-                <strong>T Geplanned:</strong> De geplande tijd voor de ticket in minuten. We doen sprint poker om de
-                tijd te schatten, dus deze waarde correspondeert met een gewicht.
-                <strong>T Nodig:</strong> De tijd die nodig was om de ticket af te ronden in minuten.
-                <strong>T Nodig %:</strong> Het percentage van de geplande tijd dat nodig was om de ticket af te
-                ronden. 100% betekent dat de ticket precies op tijd was afgerond. Onder de 100% betekent dat de ticket
-                sneller was afgerond dan gepland en boven de 100% betekent dat de ticket langer duurde dan gepland.
-                <strong>Vragen:</strong> Het aantal vragen dat ik had over de ticket.
-                <strong>QA:</strong> Het aantal QA iteraties dat nodig was om de ticket af te ronden. Een lege waarde
-                betekent dat ik nog wacht op feedback van de QA.
-                <strong>Datum Creatie:</strong> De datum waarop het meetpunt is aangemaakt.
-                <strong>Datum Update:</strong> De datum waarop het meetpunt voor het laatst is geüpdatet.
+            <p>
+                Hieronder zijn de kolommen voor het tabel dat volgt nog even expliciet uitgelegd.
             </p>
         </article>
+        <table class="information-table">
+            <thead>
+                <tr>
+                    <th>Kolom</th>
+                    <th>Uitleg</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Week Nr</td>
+                    <td>Het weeknummer waarin aan het ticket begonnen is.</td>
+                </tr>
+                <tr>
+                    <td>Ticket Nr</td>
+                    <td>Het interne ticketnummer van het meetpunt.</td>
+                </tr>
+                <tr>
+                    <td>T Geplanned</td>
+                    <td>De geplande tijd voor de ticket in minuten. We doen sprint poker om de tijd te schatten, dus
+                        deze waarde correspondeert met een gewicht.</td>
+                </tr>
+                <tr>
+                    <td>T Nodig</td>
+                    <td>De tijd die nodig was om de ticket af te ronden in minuten.</td>
+                </tr>
+                <tr>
+                    <td>T Nodig %</td>
+                    <td>Het percentage van de geplande tijd dat nodig was om de ticket af te ronden. 100% betekent
+                        dat de ticket precies op tijd was afgerond. Onder de 100% betekent dat de ticket sneller was
+                        afgerond dan gepland en boven de 100% betekent dat de ticket langer duurde dan gepland.</td>
+                </tr>
+                <tr>
+                    <td>Vragen</td>
+                    <td>Hoeveel keer hulp ik nodig had om de ticket af te ronden.</td>
+                </tr>
+                <tr>
+                    <td>QA</td>
+                    <td>Het aantal QA iteraties dat nodig was om de ticket af te ronden. Een lege waarde betekent
+                        dat ik nog wacht op feedback van de QA. Een waarde van 0 betekent dat de ticket in één keer
+                        goed was.</td>
+                </tr>
+                <tr>
+                    <td>Incidenten</td>
+                    <td>Het aantal incidenten die ontstaan zijn tijdens het bouwen van of na de ticket.</td>
+                </tr>
+                <tr>
+                    <td>Extra's</td>
+                    <td>Het aantal extra's dat ik toegevoegd heb aan de ticket.</td>
+                </tr>
+                <tr>
+                    <td>Categorie</td>
+                    <td>Wat voor soort werkzaamheden ik verricht heb voor de ticket.</td>
+                </tr>
+                <tr>
+                    <td>Taal</td>
+                    <td>Welke programmeertalen ik gebruikt heb voor de ticket.</td>
+                </tr>
+                <tr>
+                    <td>Datum Creatie</td>
+                    <td>De datum waarop het meetpunt is aangemaakt. Dit hoeft niet op de dag van start of afronding
+                        geweest te zijn. Soms krijg ik in batch nieuwe taken, en dan registreer ik deze alvast.</td>
+                </tr>
+                <tr>
+                    <td>Datum Update</td>
+                    <td>De datum waarop het meetpunt voor het laatst is bewerkt.</td>
+                </tr>
+            </tbody>
+        </table>
         <span class="splitter"></span>
         <h2>Alle Meetpunten</h2>
         <article class="flex-col">
@@ -248,10 +303,14 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 opgeslagen. Het is gesorteerd op oplopend week nummer. Ik heb verder geen andere tabellen, dus uit deze
                 data worden alle grafieken en berekeningen gemaakt. Ik heb zelf nog het tijds-percentage toegevoegd.
             </p>
+            <p>
+                Omdat het tabel zo groot is doordat het alle meetpunten laat zien, is het zowel horizontaal als
+                verticaal scrollbaar.
+            </p>
         </article>
         <span class="splitter splitter-light"></span>
-        <div class="flex-col table-container">
-            <strong>Alle Meetpunten</strong>
+        <strong>Alle Meetpunten ({{ tableAllData.points.length }})</strong>
+        <div class="flex-col table-container table-1-container">
             <table class="table-1">
                 <thead>
                     <tr>
@@ -271,7 +330,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
         <h2>Leerdoel 2: Samenwerken</h2>
         <div class="table-container-multiple">
             <div class="flex-col table-container">
-                <strong>Besteedde Tijd</strong>
+                <strong>Besteedde Tijd ({{ tableGoalData_2_1 ? tableGoalData_2_1.points.length : 0 }})</strong>
                 <table class="table-2">
                     <thead>
                         <tr>
@@ -293,7 +352,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 <small>Lagere Waarde is beter.</small>
             </div>
             <div class="flex-col table-container">
-                <strong>QA Iteraties</strong>
+                <strong>QA Iteraties ({{ tableGoalData_2_2 ? tableGoalData_2_2.points.length : 0 }})</strong>
                 <table class="table-3">
                     <thead>
                         <tr>
@@ -315,7 +374,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 <small>Lagere Waarde is beter.</small>
             </div>
             <div class="flex-col table-container">
-                <strong>Vragen</strong>
+                <strong>Vragen ({{ tableGoalData_2_3 ? tableGoalData_2_3.points.length : 0 }})</strong>
                 <table class="table-4">
                     <thead>
                         <tr>
@@ -341,7 +400,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
         <h2>Leerdoel 3: Organisatorische Context</h2>
         <div class="table-container-duo">
             <div class="flex-col table-container">
-                <strong>Extra's</strong>
+                <strong>Extra's ({{ tableGoalData_3_1 ? tableGoalData_3_1.setA.length : 0 }})</strong>
                 <table class="table-1">
                     <thead>
                         <tr>
@@ -365,7 +424,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 <small>Hogere of lagere Waarde is neutraal.</small>
             </div>
             <div class="flex-col table-container">
-                <strong>Incidenten</strong>
+                <strong>Incidenten ({{ tableGoalData_3_1 ? tableGoalData_3_1.setB.length : 0 }})</strong>
                 <table class="table-2">
                     <thead>
                         <tr>
@@ -389,7 +448,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 <small>Lagere Waarde is beter.</small>
             </div>
             <div class="flex-col table-container">
-                <strong>Tijd Geplanned</strong>
+                <strong>Tijd Geplanned ({{ tableGoalData_3_2 ? tableGoalData_3_2.setA.length : 0 }})</strong>
                 <table class="table-3">
                     <thead>
                         <tr>
@@ -413,7 +472,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 <small>Hogere of lagere Waarde is neutraal.</small>
             </div>
             <div class="flex-col table-container">
-                <strong>Tijd Besteed</strong>
+                <strong>Tijd Besteed ({{ tableGoalData_3_2 ? tableGoalData_3_2.setB.length : 0 }})</strong>
                 <table class="table-4">
                     <thead>
                         <tr>
@@ -508,6 +567,11 @@ table {
     border-collapse: collapse;
 }
 
+.table-1-container {
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
 .table-1 th {
     background-color: #6EC20770;
 }
@@ -542,6 +606,19 @@ td {
     border: 1px solid var(--font);
     padding: 10px;
     text-align: left;
+}
+
+.information-table {
+    width: 100%;
+}
+
+.information-table tbody td {
+    text-align: left;
+    vertical-align: super;
+}
+
+.information-table tbody tr td:first-child {
+    width: 110px
 }
 
 @media (width <=770px) {
