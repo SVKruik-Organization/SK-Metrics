@@ -30,7 +30,7 @@ export default defineEventHandler(async (): Promise<LearningGoal4Result | number
             secondHalf: new Map<string, number>(),
         };
 
-        const midpointDate = new Date("2024-10-20T00:00:00.000Z"); // TODO: Replace with actual midpoint date
+        const midpointDate = new Date("2024-11-16T00:00:00.000Z");
         data.forEach((item) => {
             item.time_taken_hours = parseInt(item.time_taken_hours as unknown as string);
             const itemDate = new Date(item.date_creation);

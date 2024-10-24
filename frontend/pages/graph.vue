@@ -154,7 +154,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         <ClientOnly>
             <ChartLine class="chart" label="Hoeveelheid incidenten en extra functies per taak gemiddeld per week."
                 v-if="goalData_3_1" :data="goalData_3_1"
-                :options="getOptions('Aantal incidenten en extra functies per taak gemiddeld per week', -0.2, 1)">
+                :options="getOptions('Aantal incidenten en extra functies per taak gemiddeld per week', -0.2, 0.6)">
             </ChartLine>
         </ClientOnly>
         <small class="graph-note">Meer extra's is neutraal. Minder incidenten is beter.</small>
