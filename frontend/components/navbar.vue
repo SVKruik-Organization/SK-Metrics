@@ -18,9 +18,11 @@ watch(useRoute(), () => {
 async function handleRefresh(): Promise<void> {
     if (refreshing.value) return;
     refreshing.value = true;
+    const response0: LearningGoal_Generic_Datasets | number = await useFetchGoal0(true);
     const response2: LearningGoal_Generic_Datasets | number = await useFetchGoal2(true);
     const response3: LearningGoal_Generic_Datasets | number = await useFetchGoal3(true);
     const response4: LearningGoal_4_Datasets | number = await useFetchGoal4(true);
+    if (typeof response0 === "number") window.alert(`Data ophalen voor leerdoel 0 ging mis. Probeer later opnieuw. Status code: ${response0}`);
     if (typeof response2 === "number") window.alert(`Data ophalen voor leerdoel 2 ging mis. Probeer later opnieuw. Status code: ${response2}`);
     if (typeof response3 === "number") window.alert(`Data ophalen voor leerdoel 3 ging mis. Probeer later opnieuw. Status code: ${response3}`);
     if (typeof response4 === "number") window.alert(`Data ophalen voor leerdoel 4 ging mis. Probeer later opnieuw. Status code: ${response4}`);

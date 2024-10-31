@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import type { ChartOptions } from 'chart.js';
+import { plugins, type ChartOptions } from 'chart.js';
+import { color } from 'chart.js/helpers';
 import type { ChartData } from '~/assets/customTypes';
 
 // Props
 defineProps({
+    "goalData_0_1": { type: [Object, null] as PropType<ChartData | null>, required: true },
     "goalData_2_1": { type: [Object, null] as PropType<ChartData | null>, required: true },
     "goalData_2_2": { type: [Object, null] as PropType<ChartData | null>, required: true },
     "goalData_2_3": { type: [Object, null] as PropType<ChartData | null>, required: true },
@@ -66,6 +68,21 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
             </p>
         </article>
         <span class="splitter"></span>
+        <h2>Ticket Kwantiteit</h2>
+        <article class="flex-col">
+            <p>
+                Voordat ik de leerdoelen behandel, heb ik hieronder eerst een staafgrafiek gemaakt die het aantal
+                tickets per week laat zien. Dit is ook een handig gegeven, want de andere grafieken zijn allemaal
+                gemiddelden.
+            </p>
+        </article>
+        <ClientOnly>
+            <ChartBar class="chart" label="Aantal tickets per week" v-if="goalData_0_1" :data="goalData_0_1"
+                :options="getOptions('Aantal tickets per week', 0, 12)">
+            </ChartBar>
+        </ClientOnly>
+        <small class="graph-note">Hoger is beter.</small>
+        <span class="splitter"></span>
         <h2>Leerdoel 2: Samenwerken</h2>
         <article class="flex-col">
             <p>
@@ -87,7 +104,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         <ClientOnly>
             <ChartLine class="chart" label="Besteedde en geplande tijd per ticket in procenten per week."
                 v-if="goalData_2_1" :data="goalData_2_1"
-                :options="getOptions('Tijd besteed per taak gemiddeld per week', 0, 200)">
+                :options="getOptions('Tijd besteed per taak gemiddeld per week in procenten', 0, 200)">
             </ChartLine>
         </ClientOnly>
         <small class="graph-note">Lager is beter.</small>
@@ -123,8 +140,8 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
             <ChartLine class="chart" label="Hoeveelheid vragen gesteld gemiddeld per taak per week." v-if="goalData_2_3"
                 :data="goalData_2_3" :options="getOptions('Vragen gesteld per taak gemiddeld per week', -0.2, 2)">
             </ChartLine>
-            <small class="graph-note">Hoger of lager is neutraal.</small>
         </ClientOnly>
+        <small class="graph-note">Hoger of lager is neutraal.</small>
         <span class="splitter"></span>
         <h2>Leerdoel 3: Organisatorische Context</h2>
         <article class="flex-col">
@@ -157,7 +174,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
                 :options="getOptions('Aantal incidenten en extra functies per taak gemiddeld per week', -0.2, 0.6)">
             </ChartLine>
         </ClientOnly>
-        <small class="graph-note">Meer extra's is neutraal. Minder incidenten is beter.</small>
+        <small class="graph-note">Meer of minder extra's is neutraal. Minder incidenten is beter.</small>
         <span class="splitter splitter-light"></span>
         <article class="flex-col">
             <p>
@@ -179,7 +196,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
                 :data="goalData_3_2" :options="getOptions('Geplande tijd per taak gemiddeld per week in uren', 0, 10)">
             </ChartLine>
         </ClientOnly>
-        <small class="graph-note">Hoger of lager is neutraal.</small>
+        <small class="graph-note">Meer of minder tijd gepland is neutraal. Minder tijd besteed is beter.</small>
         <span class="splitter"></span>
         <h2>Leerdoel 4: Persoonlijke Ontwikkeling</h2>
         <article class="flex-col">

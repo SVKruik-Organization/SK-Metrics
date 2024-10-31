@@ -4,6 +4,7 @@ import type { ChartData } from "~/assets/customTypes";
 
 export const useDataStorage = defineStore("useDataStorage", {
     state: () => ({
+        goalData_0_1: useSessionStorage("goalData_0_1", null as unknown as ChartData),
         goalData_2_1: useSessionStorage("goalData_2_1", null as unknown as ChartData),
         goalData_2_2: useSessionStorage("goalData_2_2", null as unknown as ChartData),
         goalData_2_3: useSessionStorage("goalData_2_3", null as unknown as ChartData),
@@ -13,6 +14,7 @@ export const useDataStorage = defineStore("useDataStorage", {
         goalData_4_2: useSessionStorage("goalData_4_2", [] as Array<ChartData>),
     }),
     hydrate(state) {
+        state.goalData_0_1 = useSessionStorage("goalData_0_1", null);
         state.goalData_2_1 = useSessionStorage("goalData_2_1", null);
         state.goalData_2_2 = useSessionStorage("goalData_2_2", null);
         state.goalData_2_3 = useSessionStorage("goalData_2_3", null);
@@ -23,6 +25,7 @@ export const useDataStorage = defineStore("useDataStorage", {
     },
     actions: {
         reset(): void {
+            this.goalData_0_1 = null;
             this.goalData_2_1 = null;
             this.goalData_2_2 = null;
             this.goalData_2_3 = null;

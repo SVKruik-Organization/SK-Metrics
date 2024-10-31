@@ -1,5 +1,23 @@
 import type { ChartDataset } from "chart.js";
-import { TableHeaderType, type ChartData, type LearningGoal2Result, type LearningGoal4Result, type TableHeaderLearningGoal_Generic_Item, type TableDataLearningGoal_Generic, type TableDataLearningGoal_3_Item, type TableHeaderGenericItem, type TableDataLearningGoal_4_Item, type LearningGoal3Result } from "~/assets/customTypes";
+import { TableHeaderType, type ChartData, type LearningGoal0Result, type LearningGoal2Result, type LearningGoal4Result, type TableHeaderLearningGoal_Generic_Item, type TableDataLearningGoal_Generic, type TableDataLearningGoal_3_Item, type TableHeaderGenericItem, type TableDataLearningGoal_4_Item, type LearningGoal3Result } from "~/assets/customTypes";
+
+/**
+ * Format incoming data for Learning Goal 0.1 into Chart.JS format.
+ * @param input The data to parse.
+ * @returns The parsed data in Chart.JS format.
+ */
+export function graph_0_1_Parser(input: Array<LearningGoal0Result>): ChartData {
+    return {
+        labels: input.map((entry) => `Week ${entry.week}`),
+        datasets: [
+            {
+                label: "Aantal",
+                data: input.map((entry) => entry.week_count),
+                backgroundColor: "#6EC20790"
+            }
+        ]
+    }
+}
 
 /**
  * Format incoming data for Learning Goal 2.1 into Chart.JS format.
@@ -14,7 +32,7 @@ export function graph_2_1_Parser(input: Array<LearningGoal2Result>): ChartData {
                 label: "Percentage",
                 data: input.map((entry) => entry.avg_time_taken_percentage),
                 backgroundColor: "#FFFFFF",
-                borderColor: "#6EC207"
+                borderColor: "#EF5A6F"
             },
         ]
     }
@@ -33,7 +51,7 @@ export function graph_2_2_Parser(input: Array<LearningGoal2Result>): ChartData {
                 label: "QA Iteraties",
                 data: input.map((entry) => entry.avg_qa_iterations),
                 backgroundColor: "#FFFFFF",
-                borderColor: "#EF5A6F"
+                borderColor: "#3572EF"
             }
         ]
     }
@@ -52,7 +70,7 @@ export function graph_2_3_Parser(input: Array<LearningGoal2Result>): ChartData {
                 label: "Aantal vragen",
                 data: input.map((entry) => entry.avg_help_needed),
                 backgroundColor: "#FFFFFF",
-                borderColor: "#3572EF"
+                borderColor: "#FF8225"
             }
         ]
     }

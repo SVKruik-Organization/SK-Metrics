@@ -63,6 +63,12 @@ export type ChartDataset = {
     "fill"?: boolean
 }
 
+// Learning Goal 0
+export type LearningGoal0Result = {
+    "week": number,
+    "week_count": number
+}
+
 // Learning Goal 2
 export type LearningGoal2Result = {
     "week": number,

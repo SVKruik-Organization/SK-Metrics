@@ -21,10 +21,12 @@
     },
     "dependencies": {
         "@pinia/nuxt": "^0.5.4",
+        "@types/chartjs-plugin-trendline": "^1.0.4",
         "@vueuse/core": "^5.0.0",
         "@vueuse/nuxt": "^11.1.0",
         "amqplib": "^0.10.4",
         "chart.js": "^4.4.4",
+        "chartjs-plugin-trendline": "^2.1.5",
         "mariadb": "^3.3.2",
         "nuxt": "^3.13.0",
         "pinia": "2.2.2",

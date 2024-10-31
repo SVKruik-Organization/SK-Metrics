@@ -4,6 +4,7 @@ export const useFetchGoal3 = async (force: boolean): Promise<LearningGoal_Generi
     const dataStorage = useDataStorage();
 
     const data = {
+        "goalData_0_1": null,
         "goalData_2_1": null,
         "goalData_2_2": null,
         "goalData_2_3": null,
