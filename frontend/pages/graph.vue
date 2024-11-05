@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { plugins, type ChartOptions } from 'chart.js';
-import { color } from 'chart.js/helpers';
+import { type ChartOptions } from 'chart.js';
 import type { ChartData } from '~/assets/customTypes';
 
 // Props
@@ -78,7 +77,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         </article>
         <ClientOnly>
             <ChartBar class="chart" label="Aantal tickets per week" v-if="goalData_0_1" :data="goalData_0_1"
-                :options="getOptions('Aantal tickets per week', 0, 12)">
+                :options="getOptions('Aantal tickets per week', 0, 14)">
             </ChartBar>
         </ClientOnly>
         <small class="graph-note">Hoger is beter.</small>

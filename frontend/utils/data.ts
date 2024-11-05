@@ -29,11 +29,11 @@ export function graph_2_1_Parser(input: Array<LearningGoal2Result>): ChartData {
         labels: input.map((entry) => `Week ${entry.week}`),
         datasets: [
             {
-                label: "Percentage",
-                data: input.map((entry) => entry.avg_time_taken_percentage),
-                backgroundColor: "#FFFFFF",
-                borderColor: "#EF5A6F"
-            },
+                "label": "Percentage",
+                "data": input.map((entry) => entry.avg_time_taken_percentage),
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#EF5A6F"
+            }
         ]
     }
 }
@@ -48,10 +48,10 @@ export function graph_2_2_Parser(input: Array<LearningGoal2Result>): ChartData {
         labels: input.map((entry) => `Week ${entry.week}`),
         datasets: [
             {
-                label: "QA Iteraties",
-                data: input.map((entry) => entry.avg_qa_iterations),
-                backgroundColor: "#FFFFFF",
-                borderColor: "#3572EF"
+                "label": "QA Iteraties",
+                "data": input.map((entry) => entry.avg_qa_iterations),
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#3572EF"
             }
         ]
     }
@@ -67,10 +67,10 @@ export function graph_2_3_Parser(input: Array<LearningGoal2Result>): ChartData {
         labels: input.map((entry) => `Week ${entry.week}`),
         datasets: [
             {
-                label: "Aantal vragen",
-                data: input.map((entry) => entry.avg_help_needed),
-                backgroundColor: "#FFFFFF",
-                borderColor: "#FF8225"
+                "label": "Aantal vragen",
+                "data": input.map((entry) => entry.avg_help_needed),
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#FF8225"
             }
         ]
     }
@@ -86,16 +86,16 @@ export function graph_3_1_Parser(input: Array<LearningGoal3Result>): ChartData {
         labels: input.map((entry) => `Week ${entry.week}`),
         datasets: [
             {
-                label: "Extra's",
-                data: input.map((entry) => entry.avg_extras),
-                backgroundColor: "#FFFFFF",
-                borderColor: "#EB5B00"
+                "label": "Extra's",
+                "data": input.map((entry) => entry.avg_extras),
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#EB5B00"
             },
             {
-                label: "Incidenten",
-                data: input.map((entry) => entry.avg_incidents),
-                backgroundColor: "#FFFFFF",
-                borderColor: "#6EC207"
+                "label": "Incidenten",
+                "data": input.map((entry) => entry.avg_incidents),
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#6EC207"
             }
         ]
     }
@@ -111,16 +111,16 @@ export function graph_3_2_Parser(input: Array<LearningGoal3Result>): ChartData {
         labels: input.map((entry) => `Week ${entry.week}`),
         datasets: [
             {
-                label: "Tijd Geplanned",
-                data: input.map((entry) => entry.avg_time_planned),
-                backgroundColor: "#FFFFFF",
-                borderColor: "#FF8225"
+                "label": "Tijd Geplanned",
+                "data": input.map((entry) => entry.avg_time_planned),
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#FF8225"
             },
             {
-                label: "Tijd Besteed",
-                data: input.map((entry) => entry.avg_time_taken),
-                backgroundColor: "#FFFFFF",
-                borderColor: "#3572EF"
+                "label": "Tijd Besteed",
+                "data": input.map((entry) => entry.avg_time_taken),
+                "backgroundColor": "#FFFFFF",
+                "borderColor": "#3572EF"
             }
         ]
     }
@@ -136,25 +136,25 @@ export function graph_4_1_Parser(input: LearningGoal4Result): Array<ChartData> {
         labels: input.categoryNames,
         datasets: [
             {
-                label: "Volledig",
-                data: input.categoryCounts.total,
-                backgroundColor: "#D2FF7230",
-                borderColor: "#D2FF72",
-                fill: true
+                "label": "Volledig",
+                "data": input.categoryCounts.total,
+                "backgroundColor": "#D2FF7230",
+                "borderColor": "#D2FF72",
+                "fill": true
             },
             {
-                label: "Eerste Helft",
-                data: input.categoryCounts.firstHalf,
-                backgroundColor: "#6EC20730",
-                borderColor: "#6EC207",
-                fill: true
+                "label": "Eerste Helft",
+                "data": input.categoryCounts.firstHalf,
+                "backgroundColor": "#6EC20730",
+                "borderColor": "#6EC207",
+                "fill": true
             },
             {
-                label: "Tweede Helft",
-                data: input.categoryCounts.secondHalf,
-                backgroundColor: "#11755430",
-                borderColor: "#117554",
-                fill: true
+                "label": "Tweede Helft",
+                "data": input.categoryCounts.secondHalf,
+                "backgroundColor": "#11755430",
+                "borderColor": "#117554",
+                "fill": true
             }
         ]
     },
@@ -162,25 +162,25 @@ export function graph_4_1_Parser(input: LearningGoal4Result): Array<ChartData> {
         labels: input.languageNames,
         datasets: [
             {
-                label: "Volledig",
-                data: input.languageCounts.total,
-                backgroundColor: "#F5004F30",
-                borderColor: "#F5004F",
-                fill: true
+                "label": "Volledig",
+                "data": input.languageCounts.total,
+                "backgroundColor": "#F5004F30",
+                "borderColor": "#F5004F",
+                "fill": true
             },
             {
-                label: "Eerste Helft",
-                data: input.languageCounts.firstHalf,
-                backgroundColor: "#EF5A6F30",
-                borderColor: "#EF5A6F",
-                fill: true
+                "label": "Eerste Helft",
+                "data": input.languageCounts.firstHalf,
+                "backgroundColor": "#EF5A6F30",
+                "borderColor": "#EF5A6F",
+                "fill": true
             },
             {
-                label: "Tweede Helft",
-                data: input.languageCounts.secondHalf,
-                backgroundColor: "#80000030",
-                borderColor: "#800000",
-                fill: true
+                "label": "Tweede Helft",
+                "data": input.languageCounts.secondHalf,
+                "backgroundColor": "#80000030",
+                "borderColor": "#800000",
+                "fill": true
             }
         ]
     }];
@@ -196,25 +196,25 @@ export function graph_4_2_Parser(input: LearningGoal4Result): Array<ChartData> {
         labels: input.categoryNames,
         datasets: [
             {
-                label: "Volledig",
-                data: input.categoryHours.total,
-                backgroundColor: "#3ABEF930",
-                borderColor: "#3ABEF9",
-                fill: true
+                "label": "Volledig",
+                "data": input.categoryHours.total,
+                "backgroundColor": "#3ABEF930",
+                "borderColor": "#3ABEF9",
+                "fill": true
             },
             {
-                label: "Eerste Helft",
-                data: input.categoryHours.firstHalf,
-                backgroundColor: "#3572EF30",
-                borderColor: "#3572EF",
-                fill: true
+                "label": "Eerste Helft",
+                "data": input.categoryHours.firstHalf,
+                "backgroundColor": "#3572EF30",
+                "borderColor": "#3572EF",
+                "fill": true
             },
             {
-                label: "Tweede Helft",
-                data: input.categoryHours.secondHalf,
-                backgroundColor: "#01204E30",
-                borderColor: "#01204E",
-                fill: true
+                "label": "Tweede Helft",
+                "data": input.categoryHours.secondHalf,
+                "backgroundColor": "#01204E30",
+                "borderColor": "#01204E",
+                "fill": true
             }
         ]
     },
@@ -222,25 +222,25 @@ export function graph_4_2_Parser(input: LearningGoal4Result): Array<ChartData> {
         labels: input.languageNames,
         datasets: [
             {
-                label: "Volledig",
-                data: input.languageHours.total,
-                backgroundColor: "#FFDE4D30",
-                borderColor: "#FFDE4D",
-                fill: true
+                "label": "Volledig",
+                "data": input.languageHours.total,
+                "backgroundColor": "#FFDE4D30",
+                "borderColor": "#FFDE4D",
+                "fill": true
             },
             {
-                label: "Eerste Helft",
-                data: input.languageHours.firstHalf,
-                backgroundColor: "#FF822530",
-                borderColor: "#FF8225",
-                fill: true
+                "label": "Eerste Helft",
+                "data": input.languageHours.firstHalf,
+                "backgroundColor": "#FF822530",
+                "borderColor": "#FF8225",
+                "fill": true
             },
             {
-                label: "Tweede Helft",
-                data: input.languageHours.secondHalf,
-                backgroundColor: "#EB5B0030",
-                borderColor: "#EB5B00",
-                fill: true
+                "label": "Tweede Helft",
+                "data": input.languageHours.secondHalf,
+                "backgroundColor": "#EB5B0030",
+                "borderColor": "#EB5B00",
+                "fill": true
             }
         ]
     }];
