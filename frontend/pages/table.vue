@@ -195,14 +195,13 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
     <section class="content-wrapper">
         <article class="flex-col">
             <p>
-                Op deze pagina zijn de ruwe gegevens te vinden die in de database zijn opgeslagen. Ook heb ik de
-                gefilterde en berekende data die in de <NuxtLink to="/graph">Grafieken</NuxtLink> gebruikt worden in
-                tabelvorm hieronder weergegeven.
+                Op deze pagina zijn de <NuxtLink to="/graph">grafieken</NuxtLink> in tabelvorm te vinden. Daarnaast is
+                er ook een tabel die alle meetpunten laat zien.
             </p>
             <p>
-                Tijdens mijn stage houd ik deze meetpunten in een database bij, zodat hier altijd de nieuwste resultaten
-                te zien zijn. Zie ook de <NuxtLink to="/graph">Grafieken</NuxtLink> pagina voor nog meer interessante
-                data.
+                Tijdens mijn stage houd ik deze meetpunten in een database actief bij, zodat hier altijd de nieuwste
+                resultaten te zien zijn. Zie ook de <NuxtLink to="/graph">Grafieken</NuxtLink> pagina voor nog meer
+                interessante data.
             </p>
             <p>
                 Om het systeem te besparen worden sommige datasets in de browser (session storage) opgeslagen. Dit
@@ -211,14 +210,13 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
             </p>
             <span class="splitter splitter-light"></span>
             <p>
-                Alle tabellen ondersteunen sorteren op kolom. Klik op de kolomnaam om te sorteren. Sommige tabellen zijn
-                te breed voor de pagina, dus deze zijn horizontaal scrollbaar. Gebruik de scrollbar onder de tabel of
-                houd de Shift toets ingedrukt en scroll met de muis/trackpad.
+                Alle tabellen ondersteunen sorteren op kolom. Klik op de kolomnaam/header om te sorteren. Sommige
+                tabellen zijn te breed voor de pagina, dus deze zijn horizontaal scrollbaar. Gebruik de scrollbar onder
+                de tabel of houd de Shift toets ingedrukt en scroll met de muis/trackpad.
             </p>
             <p>
-                De kolom 'Verschil' laat het verschil zien
-                tussen deze en vorige week. Per tabel kan een positief getal goed of juist slecht zijn (en andersom),
-                dus ik heb dit met kleuren aangegeven.
+                De kolom 'Verschil' laat het verschil zien tussen deze en vorige week. Per tabel kan een positief getal
+                goed of juist slecht zijn (en andersom), dus ik heb dit met kleuren aangegeven.
             </p>
         </article>
         <span class="splitter"></span>
@@ -291,7 +289,10 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 </tr>
                 <tr>
                     <td>Datum Update</td>
-                    <td>De datum waarop het meetpunt voor het laatst is bewerkt.</td>
+                    <td>De datum waarop het meetpunt voor het laatst is bewerkt. Een ticket kan geüpdatet worden doordat
+                        ik een incident toevoeg, een extra vraag stel, of de ticket afrond (en dan de QA-iteraties
+                        aanpas).
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -504,7 +505,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 in radar grafiek-vorm te vinden zijn. In aantal betekent hoe vaak een categorie/taal bij een ticket
                 betrokken was. In tijd betekent hoeveel tijd ik aan een categorie/taal heb besteed (doordat deze
                 betrokken was bij een ticket). Net als bij de radar grafieken zijn de waardes ook opgesplitst in
-                stage periodes. Als de tweede helft nog leeg is, bent u te vroeg!
+                stage periodes.
             </p>
         </article>
         <span class="splitter splitter-light"></span>

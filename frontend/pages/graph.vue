@@ -56,9 +56,9 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
                 te zijn.
             </p>
             <p>
-                Tijdens mijn stage houd ik deze meetpunten in een database bij, zodat hier altijd de nieuwste resultaten
-                te zien zijn. Zie ook de <NuxtLink to="/table">Tabellen</NuxtLink> pagina voor nog meer interessante en
-                ruwe data.
+                Tijdens mijn stage houd ik deze meetpunten in een database actief bij, zodat hier altijd de nieuwste
+                resultaten te zien zijn. Zie ook de <NuxtLink to="/table">Tabellen</NuxtLink> pagina voor nog meer
+                interessante data.
             </p>
             <p>
                 Om het systeem te besparen worden sommige datasets in de browser (session storage) opgeslagen. Dit
@@ -123,7 +123,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         <ClientOnly>
             <ChartLine class="chart"
                 label="Hoeveelheid QA iteraties vereist voordat een taak productie in kon per week." v-if="goalData_2_2"
-                :data="goalData_2_2" :options="getOptions('QA iteraties vereist per taak gemiddeld per week', -0.2, 2)">
+                :data="goalData_2_2" :options="getOptions('QA iteraties vereist per taak gemiddeld per week', -0.5, 2)">
             </ChartLine>
         </ClientOnly>
         <small class="graph-note">Lager is beter.</small>
@@ -137,7 +137,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         </article>
         <ClientOnly>
             <ChartLine class="chart" label="Hoeveelheid vragen gesteld gemiddeld per taak per week." v-if="goalData_2_3"
-                :data="goalData_2_3" :options="getOptions('Vragen gesteld per taak gemiddeld per week', -0.2, 2)">
+                :data="goalData_2_3" :options="getOptions('Vragen gesteld per taak gemiddeld per week', -0.5, 2.5)">
             </ChartLine>
         </ClientOnly>
         <small class="graph-note">Hoger of lager is neutraal.</small>
@@ -170,7 +170,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         <ClientOnly>
             <ChartLine class="chart" label="Hoeveelheid incidenten en extra functies per taak gemiddeld per week."
                 v-if="goalData_3_1" :data="goalData_3_1"
-                :options="getOptions('Aantal incidenten en extra functies per taak gemiddeld per week', -0.2, 0.6)">
+                :options="getOptions('Aantal incidenten en extra functies per taak gemiddeld per week', -0.2, 1.6)">
             </ChartLine>
         </ClientOnly>
         <small class="graph-note">Meer of minder extra's is neutraal. Minder incidenten is beter.</small>
@@ -218,7 +218,7 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
                 Per grafiek heb ik drie datasets: de eerste neemt de data van de gehele stageperiode, de tweede van
                 enkel de eerste helft, en de derde van alleen de tweede helft. Door de totale dataset uit te schakelen
                 (klik op het corresponderende label boven de grafiek) is het verschil te zien tussen de eerste en
-                tweede helft. Als de tweede helft nog leeg is, bent u te vroeg!
+                tweede helft.
             </p>
         </article>
         <ClientOnly>
