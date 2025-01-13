@@ -8,26 +8,43 @@ export default defineEventHandler(async (): Promise<LearningGoal4Result | number
         const data: Array<LearningGoal4RawResult> = await connection.query("SELECT ROUND(time_taken / 60) as time_taken_hours, category, language, date_creation FROM learning_goal_data;");
         connection.end();
 
+        // Default Values
+        const categoryInitial = new Map<string, number>([
+            ['Frontend', 0],
+            ['Backend', 0],
+            ['UIX', 0],
+            ['API', 0],
+            ['QA', 0],
+            ['CMS', 0],
+        ]);
+        const languageInitial = new Map<string, number>([
+            ['Laravel', 0],
+            ['Vue', 0],
+            ['Blade', 0],
+            ['Database', 0],
+            ['JavaScript', 0],
+        ]);
+
         // Type, Count
         const categoriesCount: LearningGoal4RawResultType = {
-            total: new Map<string, number>(),
-            firstHalf: new Map<string, number>(),
-            secondHalf: new Map<string, number>(),
+            total: structuredClone(categoryInitial),
+            firstHalf: structuredClone(categoryInitial),
+            secondHalf: structuredClone(categoryInitial),
         };
         const categoriesHours: LearningGoal4RawResultType = {
-            total: new Map<string, number>(),
-            firstHalf: new Map<string, number>(),
-            secondHalf: new Map<string, number>(),
+            total: structuredClone(categoryInitial),
+            firstHalf: structuredClone(categoryInitial),
+            secondHalf: structuredClone(categoryInitial),
         };
         const languagesCount: LearningGoal4RawResultType = {
-            total: new Map<string, number>(),
-            firstHalf: new Map<string, number>(),
-            secondHalf: new Map<string, number>(),
+            total: structuredClone(languageInitial),
+            firstHalf: structuredClone(languageInitial),
+            secondHalf: structuredClone(languageInitial),
         };
         const languagesHours: LearningGoal4RawResultType = {
-            total: new Map<string, number>(),
-            firstHalf: new Map<string, number>(),
-            secondHalf: new Map<string, number>(),
+            total: structuredClone(languageInitial),
+            firstHalf: structuredClone(languageInitial),
+            secondHalf: structuredClone(languageInitial),
         };
 
         const midpointDate = new Date("2024-11-16T00:00:00.000Z");

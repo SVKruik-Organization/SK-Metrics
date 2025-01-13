@@ -9,7 +9,7 @@ export default defineEventHandler(async (): Promise<Array<LearningGoal0Result> |
             week: number,
             week_count: bigint
         }) => ({
-            "week": row.week,
+            "week": row.week < 2500 ? row.week - 2400 : row.week - 2500,
             "week_count": Number(row.week_count)
         }));
         connection.end();

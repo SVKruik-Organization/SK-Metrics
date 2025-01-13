@@ -45,6 +45,24 @@ onMounted(async () => {
 // Methods
 
 /**
+ * Render special cells for the main table.
+ * @param key The key of the row.
+ * @param value The value of the to be placed cell.
+ */
+function cellRenderer(key: keyof LearningGoalEntry, value: string | number): string | number {
+    switch (key) {
+        case "timeTakenPercentage":
+            return `${value}%`;
+        case "type":
+            return value === "development" ? "Dev" : "QA";
+        case "weekNumber":
+            return (value as number) < 2500 ? (value as number) - 2400 : (value as number) - 2500;
+        default:
+            return value;
+    }
+}
+
+/**
  * Sort the All Data table based on the clicked column.
  * @param event The click event.
  * @param column The column to sort on.
@@ -275,6 +293,11 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                     <td>Het aantal extra's dat ik toegevoegd heb aan de ticket.</td>
                 </tr>
                 <tr>
+                    <td>Type</td>
+                    <td>Wat voor type werkzaamheden ik verricht heb voor de ticket. Dit kan normale development of QA
+                        zijn.</td>
+                </tr>
+                <tr>
                     <td>Categorie</td>
                     <td>Wat voor soort werkzaamheden ik verricht heb voor de ticket.</td>
                 </tr>
@@ -321,8 +344,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                 </thead>
                 <tbody>
                     <tr v-for="(point, index) in tableAllData.points" :key="index">
-                        <td v-for="(value, key) in point" :key="key">
-                            {{ key === 'timeTakenPercentage' ? `${value}%` : value }}</td>
+                        <td v-for="(value, key) in point" :key="key">{{ cellRenderer(key, value) }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -350,7 +372,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </tbody>
                 </table>
-                <small>Lagere Waarde is beter.</small>
+                <small>Lager is beter.</small>
             </div>
             <div class="flex-col table-container">
                 <strong>QA Iteraties ({{ tableGoalData_2_2 ? tableGoalData_2_2.points.length : 0 }})</strong>
@@ -372,7 +394,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </tbody>
                 </table>
-                <small>Lagere Waarde is beter.</small>
+                <small>Lager is beter.</small>
             </div>
             <div class="flex-col table-container">
                 <strong>Vragen ({{ tableGoalData_2_3 ? tableGoalData_2_3.points.length : 0 }})</strong>
@@ -394,7 +416,6 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </tbody>
                 </table>
-                <small>Hogere of lagere Waarde is neutraal.</small>
             </div>
         </div>
         <span class="splitter"></span>
@@ -422,7 +443,6 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </tbody>
                 </table>
-                <small>Hogere of lagere Waarde is neutraal.</small>
             </div>
             <div class="flex-col table-container">
                 <strong>Incidenten ({{ tableGoalData_3_1 ? tableGoalData_3_1.setB.length : 0 }})</strong>
@@ -446,7 +466,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </tbody>
                 </table>
-                <small>Lagere Waarde is beter.</small>
+                <small>Lager is beter.</small>
             </div>
             <div class="flex-col table-container">
                 <strong>Tijd Geplanned ({{ tableGoalData_3_2 ? tableGoalData_3_2.setA.length : 0 }})</strong>
@@ -470,7 +490,6 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </tbody>
                 </table>
-                <small>Hogere of lagere Waarde is neutraal.</small>
             </div>
             <div class="flex-col table-container">
                 <strong>Tijd Besteed ({{ tableGoalData_3_2 ? tableGoalData_3_2.setB.length : 0 }})</strong>
@@ -494,7 +513,6 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                         </tr>
                     </tbody>
                 </table>
-                <small>Hogere of lagere Waarde is neutraal.</small>
             </div>
         </div>
         <span class="splitter"></span>

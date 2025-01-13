@@ -80,7 +80,6 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
                 :options="getOptions('Aantal tickets per week', 0, 14)">
             </ChartBar>
         </ClientOnly>
-        <small class="graph-note">Hoger is beter.</small>
         <span class="splitter"></span>
         <h2>Leerdoel 2: Samenwerken</h2>
         <article class="flex-col">
@@ -137,10 +136,9 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         </article>
         <ClientOnly>
             <ChartLine class="chart" label="Hoeveelheid vragen gesteld gemiddeld per taak per week." v-if="goalData_2_3"
-                :data="goalData_2_3" :options="getOptions('Vragen gesteld per taak gemiddeld per week', -0.5, 2.5)">
+                :data="goalData_2_3" :options="getOptions('Vragen gesteld per taak gemiddeld per week', -0.5, 4)">
             </ChartLine>
         </ClientOnly>
-        <small class="graph-note">Hoger of lager is neutraal.</small>
         <span class="splitter"></span>
         <h2>Leerdoel 3: Organisatorische Context</h2>
         <article class="flex-col">
@@ -170,10 +168,10 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         <ClientOnly>
             <ChartLine class="chart" label="Hoeveelheid incidenten en extra functies per taak gemiddeld per week."
                 v-if="goalData_3_1" :data="goalData_3_1"
-                :options="getOptions('Aantal incidenten en extra functies per taak gemiddeld per week', -0.2, 1.6)">
+                :options="getOptions('Aantal incidenten en extra functies per taak gemiddeld per week', -0.2, 2.5)">
             </ChartLine>
         </ClientOnly>
-        <small class="graph-note">Meer of minder extra's is neutraal. Minder incidenten is beter.</small>
+        <small class="graph-note">Minder incidenten is beter.</small>
         <span class="splitter splitter-light"></span>
         <article class="flex-col">
             <p>
@@ -192,10 +190,10 @@ function getOptions(title: string, min: number, max: number, type: string = "lin
         </article>
         <ClientOnly>
             <ChartLine class="chart" label="Geplande tijd per taak gemiddeld per week in uren." v-if="goalData_3_2"
-                :data="goalData_3_2" :options="getOptions('Geplande tijd per taak gemiddeld per week in uren', 0, 10)">
+                :data="goalData_3_2" :options="getOptions('Geplande tijd per taak gemiddeld per week in uren', 0, 40)">
             </ChartLine>
         </ClientOnly>
-        <small class="graph-note">Meer of minder tijd gepland is neutraal. Minder tijd besteed is beter.</small>
+        <small class="graph-note">Minder tijd besteed is beter.</small>
         <span class="splitter"></span>
         <h2>Leerdoel 4: Persoonlijke Ontwikkeling</h2>
         <article class="flex-col">
