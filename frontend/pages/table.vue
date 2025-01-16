@@ -115,8 +115,12 @@ function sortTableGenericSingle(event: MouseEvent, column: keyof TableDataLearni
     eventTarget.setAttribute("data-sort-order", sortOrder === "asc" ? "desc" : "asc");
 
     datasets.points.sort((a, b) => {
-        const columnA: number = a[column];
-        const columnB: number = b[column];
+        let columnA: number = a[column];
+        let columnB: number = b[column];
+        if (column === "week") {
+            columnA < 37 ? columnA += 2500 : columnA += 2400;
+            columnB < 37 ? columnB += 2500 : columnB += 2400;
+        }
 
         if (columnA < columnB) return -1 * multiplier;
         if (columnA > columnB) return 1 * multiplier;
@@ -142,8 +146,12 @@ function sortTableGenericMultiple(event: MouseEvent, column: string, data: keyof
         // 3
         const processedPoints = points as Array<GenericRowItem>;
         processedPoints.sort((a, b) => {
-            const columnA: number = a[column as keyof TableDataLearningGoal_3_Item["setA"][0]];
-            const columnB: number = b[column as keyof TableDataLearningGoal_3_Item["setA"][0]];
+            let columnA: number = a[column as keyof TableDataLearningGoal_3_Item["setA"][0]];
+            let columnB: number = b[column as keyof TableDataLearningGoal_3_Item["setA"][0]];
+            if (column === "week") {
+                columnA < 37 ? columnA += 2500 : columnA += 2400;
+                columnB < 37 ? columnB += 2500 : columnB += 2400;
+            }
 
             if (columnA < columnB) return -1 * multiplier;
             if (columnA > columnB) return 1 * multiplier;
@@ -429,8 +437,7 @@ function getTrendColors(invert: boolean): { colorGood: "red" | "green", colorBad
                             <th data-sort-order="asc" v-if="tableGoalData_3_1"
                                 v-for="(header, index) in tableGoalData_3_1.tableHeaders" :key="index"
                                 @click="sortTableGenericMultiple($event, header.key, 'goalData_3_1', tableGoalData_3_1.setA)">
-                                {{
-                                    header.label }}
+                                {{ header.label }}
                             </th>
                         </tr>
                     </thead>
