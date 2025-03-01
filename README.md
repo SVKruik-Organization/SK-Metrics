@@ -1,6 +1,8 @@
 # SK Metrics
 
-> NOTE: for now SK Metrics is used for an university assignment, so no SK Platform metrics at this time. Come back later for the full Houston experience.
+> NOTE 2: I have completed the assignment described below and have shutdown the website. I removed all domain records but will keep the code archived.
+>
+> NOTE 1: for now SK Metrics is used for an university assignment, so no SK Platform metrics at this time. Come back later for the full Houston experience.
 >
 > Affiliated with the AUAS? Please ignore everthing related to 'SK Platform', as this is not directly relevant for my internship completion at this time. Besides irrelevance, links and websites might not be operational. For now, only SK Metrics is a high priority uptime project. That being said, feel free to browse and click around of course.
 
